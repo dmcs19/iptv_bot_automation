@@ -13,10 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+    - name: List files in the root directory
+      run: |
+        echo "Current working directory: $(pwd)"
+        echo "Listing files in current directory:"
+        ls -alh
 
     - name: Install dependencies
       run: |
@@ -24,4 +25,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run the automation
-      run: python $GITHUB_WORKSPACE/auto_run.py
+      run: python auto_run.py  # This should be correct if file is in root
