@@ -24,4 +24,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run the automation
-      run: python auto_run.py
+      run: python ./auto_run.py
