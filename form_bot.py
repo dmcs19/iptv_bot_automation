@@ -132,6 +132,8 @@ async def run_form_process():
 
     # Wait for email in a thread
     result = await loop.run_in_executor(None, check_mail_and_extract, session)
+
+    session.close()
     
     # Create your link
     link = f"http://goldclub.tv/webplayer/login.php"
