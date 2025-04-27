@@ -80,13 +80,21 @@ def simulate_human_behavior(driver, element):
 
 def submit_form(email, phone):
     options = uc.ChromeOptions()
-    options.headless = True
+    # options.headless = True
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-software-rasterizer")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-setuid-sandbox")
+    options.add_argument("--window-size=1920,1080")
     driver = uc.Chrome(options=options)
     wait = WebDriverWait(driver, 20)
     try:
         driver.get("https://goldclubhosting.xyz/index.php?rp=/store/free-trial")
 
-        close_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a.close[value='11']")))
+        close_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a.close")))
         close_button.click()
 
         order_now_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a#product7-order-button")))
