@@ -148,5 +148,5 @@ async def run_form_process():
     url_host = f"http://goldclub.tv/"
 
     # Add it to the top of the result
-    result = f"{link}\n{"URL Host: "}{url_host}\n{result}"
+    result = f"{link}\nURL Host: {url_host}\n{result}"
     return result
