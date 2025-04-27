@@ -145,7 +145,8 @@ async def run_form_process():
     
     # Create your link
     link = f"http://goldclub.tv/webplayer/login.php"
+    url_host = f"http://goldclub.tv/"
 
     # Add it to the top of the result
-    result = f"{link}\n{result}"
+    result = f"{link}\n{"URL Host: "}{url_host}\n{result}"
     return result
