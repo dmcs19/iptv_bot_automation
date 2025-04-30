@@ -3,7 +3,7 @@ import requests
 import base64
 import os
 
-GITHUB_TOKEN = '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'
+PAT = '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'
 GITHUB_REPO_OWNER = 'dmcs19'
 GITHUB_REPO_NAME = 'iptv_bot_automation'
 GITHUB_API_URL = f'https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/'
@@ -25,7 +25,7 @@ def download_m3u(m3u_url):
         return None
 
 def upload_to_github(file_name, file_content):
-    if not GITHUB_TOKEN:
+    if not PAT:
         print("Error: GitHub token is missing.")
         return
 
@@ -33,7 +33,7 @@ def upload_to_github(file_name, file_content):
     try:
         # Get the metadata of the file (if it exists)
         response = requests.get(f'{GITHUB_API_URL}{file_name}', headers={
-            "Authorization": f"token {GITHUB_TOKEN}"
+            "Authorization": f"token {PAT}"
         })
         
         if response.status_code == 200:
@@ -64,7 +64,7 @@ def upload_to_github(file_name, file_content):
 
     try:
         response = requests.put(f'{GITHUB_API_URL}{file_name}', headers={
-            "Authorization": f"token {GITHUB_TOKEN}"
+            "Authorization": f"token {PAT}"
         }, json=payload)
         
         if response.status_code == 201 or response.status_code == 200:
