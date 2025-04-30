@@ -3,8 +3,7 @@ import requests
 import base64
 import os
 
-# PAT = os.getenv("PAT")
-PAT = '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'
+PAT = os.getenv("PAT")
 GITHUB_REPO_OWNER = 'dmcs19'
 GITHUB_REPO_NAME = 'iptv_bot_automation'
 GITHUB_API_URL = f'https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/'
