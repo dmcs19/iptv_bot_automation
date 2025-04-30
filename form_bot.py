@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import asyncio
+import subprocess
 
 MAIL_TM_API = "https://api.mail.tm"
 
@@ -53,23 +54,32 @@ def check_mail_and_extract(session):
             msg_id = msgs["hydra:member"][0]["id"]
             msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
             body = msg.get("text", "") or msg.get("html", "")
-            username, password = extract_fields(body)
+            username, password, m3u_link = extract_fields(body)
             if username and password:
-                return f"Your Username: {username}\nYour Password: {password}"
+                result = subprocess.run(
+                    ['python', 'update_playlist.py', m3u_link],
+                    capture_output=True,  # Capture the output of the script
+                    text=True  # Capture the output as a string (not bytes)
+                )                
+                print(result.stderr)  # Print any errors if occurred
+                return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
         time.sleep(30)
     return "❌ Email not received after 5 minutes."
 
 def extract_fields(body):
     username_pattern = "Your Username :"
     password_pattern = "Your Password :"
-    username = password = None
+    m3u_link_pattern = "M3u Plus Playlist URL :"
+    username = password = m3u_link = None
     lines = body.splitlines()
     for line in lines:
         if username_pattern in line:
             username = line.split(username_pattern)[-1].strip()
         elif password_pattern in line:
             password = line.split(password_pattern)[-1].strip()
-    return username, password
+        elif m3u_link_pattern in line:
+            m3u_link = line.split(m3u_link_pattern)[-1].strip()
+    return username, password, m3u_link
 
 def simulate_human_behavior(driver, element):
     actions = ActionChains(driver)
