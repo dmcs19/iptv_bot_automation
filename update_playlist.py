@@ -29,6 +29,28 @@ def upload_to_github(file_name, file_content):
         print("Error: GitHub token is missing.")
         return
 
+    existing_file_sha = None
+    try:
+        # Get the metadata of the file (if it exists)
+        response = requests.get(f'{GITHUB_API_URL}{file_name}', headers={
+            "Authorization": f"token {GITHUB_TOKEN}"
+        })
+        
+        if response.status_code == 200:
+            # File exists, extract the SHA value
+            file_data = response.json()
+            existing_file_sha = file_data['sha']
+            print(f"File '{file_name}' already exists. SHA: {existing_file_sha}")
+        elif response.status_code == 404:
+            print(f"File '{file_name}' does not exist. Will create a new file.")
+        else:
+            print(f"Failed to check file existence. HTTP Status Code: {response.status_code}")
+            print(response.json())
+            return
+    except requests.exceptions.RequestException as e:
+        print(f"Error during GitHub API request: {e}")
+        return
+
     encoded_content = base64.b64encode(file_content.encode('utf-8')).decode('utf-8')
     
     payload = {
@@ -36,12 +58,16 @@ def upload_to_github(file_name, file_content):
         "content": encoded_content
     }
 
+    if existing_file_sha:
+        payload["sha"] = existing_file_sha
+        print(f"Updating file '{file_name}' with SHA: {existing_file_sha}")
+
     try:
         response = requests.put(f'{GITHUB_API_URL}{file_name}', headers={
             "Authorization": f"token {GITHUB_TOKEN}"
         }, json=payload)
         
-        if response.status_code == 201:
+        if response.status_code == 201 or response.status_code == 200:
             print(f"File uploaded successfully to {GITHUB_REPO_NAME}/{file_name}")
         else:
             print(f"Failed to upload file. HTTP Status Code: {response.status_code}")
