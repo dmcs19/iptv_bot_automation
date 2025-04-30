@@ -9,6 +9,11 @@ jobs:
     run-bot-process:
         runs-on: ubuntu-latest
 
+        env:  # Inject secrets into environment
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+        PAT: ${{ secrets.PAT }}
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
