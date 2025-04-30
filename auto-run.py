@@ -19,6 +19,7 @@ def send_to_telegram(message):
     print("Telegram response:", response.json())
 
 if __name__ == "__main__":
+    print(BOT_TOKEN)
     try:
         result = asyncio.run(run_form_process())
         message = f"✅ Auto run completed:\n\n{result}"
