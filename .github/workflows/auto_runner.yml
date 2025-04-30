@@ -27,24 +27,8 @@ jobs:
               run: |
                 sudo apt-get update
                 sudo apt-get install -y wget unzip
-
-                # Install latest stable Chrome
                 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                 sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
-
-                # Get the installed Chrome version (only major.minor.build)
-                CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-                echo "Installed Chrome version: $CHROME_VERSION"
-
-                # Get matching ChromeDriver version
-                CHROMEDRIVER_VERSION=$(wget -qO- "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-                echo "Matching ChromeDriver version: $CHROMEDRIVER_VERSION"
-
-                # Download and install matching ChromeDriver
-                wget "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-                unzip chromedriver_linux64.zip
-                sudo mv chromedriver /usr/local/bin/
-                sudo chmod +x /usr/local/bin/chromedriver
 
             - name: Run the automation
               run: python auto-run.py
