@@ -1,9 +1,12 @@
 import asyncio
 import requests
 from form_bot import run_form_process
+import os
 
-BOT_TOKEN = "8020314661:AAFUpm4RJPFeMXfZMWYTdpl6LB4BtJGG-KQ"
-CHAT_ID = "6444790041"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+# BOT_TOKEN = "8020314661:AAFUpm4RJPFeMXfZMWYTdpl6LB4BtJGG-KQ"
+# CHAT_ID = "6444790041"
 
 def send_to_telegram(message):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
