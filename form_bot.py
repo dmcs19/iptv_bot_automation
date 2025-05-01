@@ -98,7 +98,7 @@ def submit_form(email, phone):
     options.add_argument("--disable-extensions")
     options.add_argument("--disable-setuid-sandbox")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, use_subprocess=False, browser_executable_path="usr/bin/google_chrome")
+    driver = uc.Chrome(options=options, use_subprocess=False, browser_executable_path="/opt/google/chrome/google-chrome")
     wait = WebDriverWait(driver, 20)
     try:
         driver.get("https://goldclubhosting.xyz/index.php?rp=/store/free-trial")
