@@ -23,16 +23,19 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
 
+            - name: Remove preinstalled Chrome
+              run: sudo apt-get purge google-chrome-stable -y || true
+
             - name: Install Chrome
               run: |
-                sudo apt-get update
-                sudo apt-get install -y wget unzip
-                wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+                  sudo apt-get update
+                  sudo apt-get install -y wget unzip
+                  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                  sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
 
             - name: Run the automation
               run: python auto-run.py
               env:
-                BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-                CHAT_ID: ${{ secrets.CHAT_ID }}
-                PAT: ${{ secrets.PAT }}
+                  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+                  CHAT_ID: ${{ secrets.CHAT_ID }}
+                  PAT: ${{ secrets.PAT }}
