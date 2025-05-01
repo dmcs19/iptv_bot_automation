@@ -24,7 +24,12 @@ jobs:
                   pip install -r requirements.txt
 
             - name: Remove preinstalled Chrome
-              run: sudo apt-get purge google-chrome-stable -y || true
+              run: |
+                sudo apt-get purge google-chrome-stable google-chrome-beta google-chrome -y
+                sudo rm -rf /opt/google/chrome
+                sudo rm -rf ~/.config/google-chrome
+                sudo rm -rf ~/.cache/google-chrome
+
 
             - name: Install Chrome
               run: |
