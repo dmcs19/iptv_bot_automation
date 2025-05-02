@@ -113,9 +113,8 @@ if __name__ == "__main__":
         selected_channels = [
             "PT: Sporting TV",
             "PT: SPORT TV",
-            "PT: Porto Canal",
             "PT: NBA",
-            "PT: Eleven",
+            "PT: Eleven Sports",
             "PT: Benfica",
             "4K: Sky Sports F1 UHD",
             "Sky Sports Football",
