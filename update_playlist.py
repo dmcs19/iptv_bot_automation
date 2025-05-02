@@ -47,7 +47,7 @@ def filter_m3u_content(m3u_content, allowed_channels):
             channel_name = line.split(",")[-1].strip()
             url = lines[i + 1]
 
-            if channel_name in allowed_channels:
+            if any(partial.lower() in channel_name.lower() for partial in allowed_channels):
                 filtered_lines.append(line)
                 filtered_lines.append(url)
             i += 2
