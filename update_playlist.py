@@ -12,7 +12,13 @@ def update_playlist(m3u_link):
     print(f"Downloading M3U file from: {m3u_link}")
     m3u_content = download_m3u(m3u_link)
     if m3u_content:
-        upload_to_github("playlist.m3u", m3u_content)
+        filtered_content = filter_m3u_content(m3u_content, allowed_channels)
+        if filtered_content:
+            upload_to_github("playlist.m3u", filtered_content)
+        else:
+            print("No valid content found to upload.")
+    else:
+        print("Failed to download M3U content.")
 
 def download_m3u(m3u_url):
     try:
@@ -23,6 +29,32 @@ def download_m3u(m3u_url):
     except requests.exceptions.RequestException as e:
         print(f"Error while downloading M3U file from {m3u_url}: {e}")
         return None
+
+def filter_m3u_content(m3u_content, allowed_channels):
+    lines = m3u_content.strip().splitlines()
+    filtered_lines = []
+
+    if len(lines) >= 2:
+        filtered_lines.extend(lines[:2])
+    else:
+        print("M3U content seems too short or malformed.")
+        return None
+
+    i = 2
+    while i < len(lines) - 1:
+        line = lines[i]
+        if line.startswith("#EXTINF"):
+            channel_name = line.split(",")[-1].strip()
+            url = lines[i + 1]
+
+            if channel_name in allowed_channels:
+                filtered_lines.append(line)
+                filtered_lines.append(url)
+            i += 2
+        else:
+            i += 1
+
+    return "\n".join(filtered_lines) if len(filtered_lines) > 2 else None
 
 def upload_to_github(file_name, file_content):
     if not PAT:
@@ -76,9 +108,24 @@ def upload_to_github(file_name, file_content):
         print(f"Error during the GitHub upload process: {e}")
 
 if __name__ == "__main__":
-    # Check if the M3U link argument is provided
     if len(sys.argv) == 2:
         m3u_link = sys.argv[1]
-        update_playlist(m3u_link)
+        selected_channels = [
+            "PT: Eurosport",
+            "PT: SIC",
+            "PT: TVI",
+            "PT: TVCine",
+            "PT: Sporting TV",
+            "PT: SPORT TV",
+            "PT: RTP",
+            "PT: Porto Canal",
+            "PT: NBA",
+            "PT: Eleven",
+            "PT: CNN",
+            "PT: CMTV",
+            "PT: C11",
+            "PT: Benfica"
+        ]
+        update_playlist(m3u_link, selected_channels)
     else:
         print("Error: M3U link argument missing.")
