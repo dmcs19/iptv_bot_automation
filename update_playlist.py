@@ -111,7 +111,6 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         m3u_link = sys.argv[1]
         selected_channels = [
-            "PT: Sporting TV",
             "PT: SPORT TV",
             "PT: NBA",
             "PT: Eleven Sports",
