@@ -8,7 +8,7 @@ GITHUB_REPO_OWNER = 'dmcs19'
 GITHUB_REPO_NAME = 'iptv_bot_automation'
 GITHUB_API_URL = f'https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/'
 
-def update_playlist(m3u_link):
+def update_playlist(m3u_link, allowed_channels):
     print(f"Downloading M3U file from: {m3u_link}")
     m3u_content = download_m3u(m3u_link)
     if m3u_content:
