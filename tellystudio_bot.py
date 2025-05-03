@@ -52,7 +52,7 @@ def create_1secmail_account():
 
 # ✅ NEW: Uses 1secmail API to poll inbox and extract credentials
 def check_mail_and_extract_1secmail(login, domain):
-    for _ in range(120):  # Retry for 1 hour
+    for _ in range(20):  # Retry for 20 minutes
         resp = requests.get(f"https://www.1secmail.com/api/v1/?action=getMessages&login={login}&domain={domain}")
         if resp.status_code == 200 and resp.json():
             message_id = resp.json()[0]['id']
@@ -69,7 +69,7 @@ def check_mail_and_extract_1secmail(login, domain):
                     print(result.stderr)
                     return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
         time.sleep(30)
-    return "❌ Email not received after 1 hour."
+    return "❌ Email not received after 20 minutes."
 
 # ❌ Old mail.tm polling (commented)
 # def check_mail_and_extract(session):
