@@ -2,4 +2,3 @@ undetected-chromedriver
 requests
 selenium
 aiohttp
-requests
