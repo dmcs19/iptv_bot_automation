@@ -5,12 +5,21 @@ import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 import asyncio
 import subprocess
 import string
+import os
 
-# MAIL_TM_API = "https://api.mail.tm"  # ❌ Old temp mail API (commented)
+MAILSAC_API = os.getenv("MAILSAC_API")
+
+# Mailsac API and Gmail alias generation
+MAILSAC_API = "https://api.mailsac.com/api/v1"
+
+# Generate random Gmail alias
+def generate_gmail_alias():
+    base_email = "dmcsaraiva@gmail.com"
+    alias = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))  # Random alias
+    return f"{alias}+{alias}@gmail.com"
 
 def generate_random_portuguese_phone():
     prefixes = ["91", "92", "93", "96"]
@@ -18,45 +27,18 @@ def generate_random_portuguese_phone():
     rest = ''.join(str(random.randint(0, 9)) for _ in range(7))
     return f"+351{prefix}{rest}"
 
-# ✅ NEW: 1secmail-based temp mail creation
-def create_1secmail_account():
-    domain_list = ["esiix.com", "yoggm.com", "wwjmp.com"]
-    domain = random.choice(domain_list)
-    login = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
-    email = f"{login}@{domain}"
-    return login, domain, email
-
-# ❌ Old method using mail.tm (commented)
-# def create_temp_account():
-#     session = requests.Session()
-#     domains_resp = session.get(f"{MAIL_TM_API}/domains")
-#     domains = domains_resp.json()["hydra:member"]
-#     if not domains:
-#         raise Exception("No available domains from mail.tm")
-#     domain = domains[0]["domain"]
-#     username = f"user{int(time.time())}@{domain}"
-#     password = "TempPassword123!"
-#     response = session.post(f"{MAIL_TM_API}/accounts", json={
-#         "address": username,
-#         "password": password
-#     })
-#     if response.status_code != 201:
-#         raise Exception(f"Failed to create temp mail: {response.text}")
-#     token_resp = session.post(f"{MAIL_TM_API}/token", json={
-#         "address": username,
-#         "password": password
-#     })
-#     token = token_resp.json()["token"]
-#     session.headers.update({"Authorization": f"Bearer {token}"})
-#     return session, username
-
-# ✅ NEW: Uses 1secmail API to poll inbox and extract credentials
-def check_mail_and_extract_1secmail(login, domain):
+# Mailsac account to retrieve emails
+def check_mail_and_extract_mailsac(mailsac_email, api_key):
     for _ in range(10):  # Retry for 5 minutes
-        resp = requests.get(f"https://www.1secmail.com/api/v1/?action=getMessages&login={login}&domain={domain}")
+        url = f"{MAILSAC_API}/addresses/{mailsac_email}/messages"
+        headers = {
+            "Mailsac-Key": api_key
+        }
+
+        resp = requests.get(url, headers=headers)
         if resp.status_code == 200 and resp.json():
             message_id = resp.json()[0]['id']
-            msg_resp = requests.get(f"https://www.1secmail.com/api/v1/?action=readMessage&login={login}&domain={domain}&id={message_id}")
+            msg_resp = requests.get(f"{MAILSAC_API}/addresses/{mailsac_email}/messages/{message_id}", headers=headers)
             if msg_resp.status_code == 200:
                 body = msg_resp.json().get('textBody', '') or msg_resp.json().get('htmlBody', '')
                 username, password, m3u_link = extract_fields(body)
@@ -67,29 +49,9 @@ def check_mail_and_extract_1secmail(login, domain):
                         text=True
                     )
                     print(result.stderr)
-                    return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
+                    return f"Your Username: {username}\nYour Password: {password}\nM3U Link: {m3u_link}"
         time.sleep(30)
     return "❌ Email not received after 5 minutes."
-
-# ❌ Old mail.tm polling (commented)
-# def check_mail_and_extract(session):
-#     for _ in range(120):  # Retry for 1 hour
-#         msgs = session.get(f"{MAIL_TM_API}/messages").json()
-#         if msgs and "hydra:member" in msgs and msgs["hydra:member"]:
-#             msg_id = msgs["hydra:member"][0]["id"]
-#             msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
-#             body = msg.get("text", "") or msg.get("html", "")
-#             username, password, m3u_link = extract_fields(body)
-#             if username and password:
-#                 result = subprocess.run(
-#                     ['python', 'update_playlist_tellystudio.py', m3u_link],
-#                     capture_output=True,
-#                     text=True
-#                 )
-#                 print(result.stderr)
-#                 return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
-#         time.sleep(30)
-#     return "❌ Email not received after 1 hour."
 
 def extract_fields(body):
     username_pattern = "Username:"
@@ -123,10 +85,10 @@ def submit_form(email, phone):
 
         order_now_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a#product5-order-button")))
         order_now_button.click()
-        
+
         customfield_dropdown = wait.until(EC.presence_of_element_located((By.ID, "customfield2")))
         Select(customfield_dropdown).select_by_visible_text("Fire TVStick/Fire TVStick 4K/Fire TVCube")
-                
+
         checkout_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button#btnCompleteProductConfig")))
         checkout_button.click()
 
@@ -154,15 +116,21 @@ def submit_form(email, phone):
     finally:
         driver.quit()
 
-# ✅ Updated async process
+# Updated async process
 async def run_form_process():
     loop = asyncio.get_event_loop()
-    login, domain, email = await loop.run_in_executor(None, create_1secmail_account)
+
+    # Generate a Gmail alias and Mailsac email
+    gmail_alias = generate_gmail_alias()
+    mailsac_email = "dmcsaraiva@mailsac.com"  # Your Mailsac email (this will receive forwarded emails)
+    
     phone = generate_random_portuguese_phone()
 
-    await loop.run_in_executor(None, submit_form, email, phone)
+    # Submit the form
+    await loop.run_in_executor(None, submit_form, gmail_alias, phone)
 
-    result = await loop.run_in_executor(None, check_mail_and_extract_1secmail, login, domain)
+    # Check the Mailsac inbox for the email
+    result = await loop.run_in_executor(None, check_mail_and_extract_mailsac, mailsac_email, MAILSAC_API)
 
     url_host = f"http://telle.cc"
     result = f"URL Host: {url_host}\n{result}"
