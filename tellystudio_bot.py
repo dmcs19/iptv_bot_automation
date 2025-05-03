@@ -20,7 +20,7 @@ def generate_random_portuguese_phone():
 
 # ✅ NEW: 1secmail-based temp mail creation
 def create_1secmail_account():
-    domain_list = ["1secmail.com", "1secmail.net", "1secmail.org", "esiix.com", "wwjmp.com", "xojxe.com", "yoggm.com"]
+    domain_list = ["esiix.com", "yoggm.com", "wwjmp.com"]
     domain = random.choice(domain_list)
     login = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
     email = f"{login}@{domain}"
