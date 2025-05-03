@@ -100,6 +100,9 @@ def submit_form(email, phone):
         order_now_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a#product5-order-button")))
         order_now_button.click()
         
+        customfield_dropdown = wait.until(EC.presence_of_element_located((By.ID, "customfield2")))
+        Select(customfield_dropdown).select_by_visible_text("Fire TVStick/Fire TVStick 4K/Fire TVCube")
+                
         checkout_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button#btnCompleteProductConfig")))
         checkout_button.click()
 
