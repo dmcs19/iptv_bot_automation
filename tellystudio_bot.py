@@ -8,8 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import asyncio
 import subprocess
+import string
 
-MAIL_TM_API = "https://api.mail.tm"
+# MAIL_TM_API = "https://api.mail.tm"  # ❌ Old temp mail API (commented)
 
 def generate_random_portuguese_phone():
     prefixes = ["91", "92", "93", "96"]
@@ -17,54 +18,78 @@ def generate_random_portuguese_phone():
     rest = ''.join(str(random.randint(0, 9)) for _ in range(7))
     return f"+351{prefix}{rest}"
 
-def create_temp_account():
-    session = requests.Session()
-    
-    # 🔁 Get a valid domain
-    domains_resp = session.get(f"{MAIL_TM_API}/domains")
-    domains = domains_resp.json()["hydra:member"]
-    if not domains:
-        raise Exception("No available domains from mail.tm")
-    domain = domains[0]["domain"]  # just pick the first valid domain
+# ✅ NEW: 1secmail-based temp mail creation
+def create_1secmail_account():
+    domain_list = ["1secmail.com", "1secmail.net", "1secmail.org", "esiix.com", "wwjmp.com", "xojxe.com", "yoggm.com"]
+    domain = random.choice(domain_list)
+    login = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
+    email = f"{login}@{domain}"
+    return login, domain, email
 
-    username = f"user{int(time.time())}@{domain}"
-    password = "TempPassword123!"
+# ❌ Old method using mail.tm (commented)
+# def create_temp_account():
+#     session = requests.Session()
+#     domains_resp = session.get(f"{MAIL_TM_API}/domains")
+#     domains = domains_resp.json()["hydra:member"]
+#     if not domains:
+#         raise Exception("No available domains from mail.tm")
+#     domain = domains[0]["domain"]
+#     username = f"user{int(time.time())}@{domain}"
+#     password = "TempPassword123!"
+#     response = session.post(f"{MAIL_TM_API}/accounts", json={
+#         "address": username,
+#         "password": password
+#     })
+#     if response.status_code != 201:
+#         raise Exception(f"Failed to create temp mail: {response.text}")
+#     token_resp = session.post(f"{MAIL_TM_API}/token", json={
+#         "address": username,
+#         "password": password
+#     })
+#     token = token_resp.json()["token"]
+#     session.headers.update({"Authorization": f"Bearer {token}"})
+#     return session, username
 
-    response = session.post(f"{MAIL_TM_API}/accounts", json={
-        "address": username,
-        "password": password
-    })
-
-    if response.status_code != 201:
-        raise Exception(f"Failed to create temp mail: {response.text}")
-
-    # 🔐 Authenticate to get token
-    token_resp = session.post(f"{MAIL_TM_API}/token", json={
-        "address": username,
-        "password": password
-    })
-    token = token_resp.json()["token"]
-    session.headers.update({"Authorization": f"Bearer {token}"})
-    return session, username
-
-def check_mail_and_extract(session):
+# ✅ NEW: Uses 1secmail API to poll inbox and extract credentials
+def check_mail_and_extract_1secmail(login, domain):
     for _ in range(120):  # Retry for 1 hour
-        msgs = session.get(f"{MAIL_TM_API}/messages").json()
-        if msgs and "hydra:member" in msgs and msgs["hydra:member"]:
-            msg_id = msgs["hydra:member"][0]["id"]
-            msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
-            body = msg.get("text", "") or msg.get("html", "")
-            username, password, m3u_link = extract_fields(body)
-            if username and password:
-                result = subprocess.run(
-                    ['python', 'update_playlist_tellystudio.py', m3u_link],
-                    capture_output=True,  # Capture the output of the script
-                    text=True  # Capture the output as a string (not bytes)
-                )                
-                print(result.stderr)  # Print any errors if occurred
-                return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
+        resp = requests.get(f"https://www.1secmail.com/api/v1/?action=getMessages&login={login}&domain={domain}")
+        if resp.status_code == 200 and resp.json():
+            message_id = resp.json()[0]['id']
+            msg_resp = requests.get(f"https://www.1secmail.com/api/v1/?action=readMessage&login={login}&domain={domain}&id={message_id}")
+            if msg_resp.status_code == 200:
+                body = msg_resp.json().get('textBody', '') or msg_resp.json().get('htmlBody', '')
+                username, password, m3u_link = extract_fields(body)
+                if username and password:
+                    result = subprocess.run(
+                        ['python', 'update_playlist_tellystudio.py', m3u_link],
+                        capture_output=True,
+                        text=True
+                    )
+                    print(result.stderr)
+                    return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
         time.sleep(30)
     return "❌ Email not received after 1 hour."
+
+# ❌ Old mail.tm polling (commented)
+# def check_mail_and_extract(session):
+#     for _ in range(120):  # Retry for 1 hour
+#         msgs = session.get(f"{MAIL_TM_API}/messages").json()
+#         if msgs and "hydra:member" in msgs and msgs["hydra:member"]:
+#             msg_id = msgs["hydra:member"][0]["id"]
+#             msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
+#             body = msg.get("text", "") or msg.get("html", "")
+#             username, password, m3u_link = extract_fields(body)
+#             if username and password:
+#                 result = subprocess.run(
+#                     ['python', 'update_playlist_tellystudio.py', m3u_link],
+#                     capture_output=True,
+#                     text=True
+#                 )
+#                 print(result.stderr)
+#                 return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
+#         time.sleep(30)
+#     return "❌ Email not received after 1 hour."
 
 def extract_fields(body):
     username_pattern = "Username:"
@@ -80,7 +105,6 @@ def extract_fields(body):
         elif m3u_link_pattern in line:
             m3u_link = line.split(m3u_link_pattern)[-1].strip()
     return username, password, m3u_link
-
 
 def submit_form(email, phone):
     options = uc.ChromeOptions()
@@ -130,22 +154,16 @@ def submit_form(email, phone):
     finally:
         driver.quit()
 
-### 🔁 Async wrapper function
+# ✅ Updated async process
 async def run_form_process():
     loop = asyncio.get_event_loop()
-    session, email = await loop.run_in_executor(None, create_temp_account)
+    login, domain, email = await loop.run_in_executor(None, create_1secmail_account)
     phone = generate_random_portuguese_phone()
 
-    # Submit form in a thread
     await loop.run_in_executor(None, submit_form, email, phone)
 
-    # Wait for email in a thread
-    result = await loop.run_in_executor(None, check_mail_and_extract, session)
+    result = await loop.run_in_executor(None, check_mail_and_extract_1secmail, login, domain)
 
-    session.close()
-    
     url_host = f"http://telle.cc"
-
-    # Add it to the top of the result
     result = f"URL Host: {url_host}\n{result}"
     return result
