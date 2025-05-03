@@ -63,7 +63,7 @@ def check_mail_and_extract(session):
                 )                
                 print(result.stderr)  # Print any errors if occurred
                 return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
-        time.sleep(300)
+        time.sleep(30)
     return "❌ Email not received after 1 hour."
 
 def extract_fields(body):
