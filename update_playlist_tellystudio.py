@@ -112,17 +112,10 @@ if __name__ == "__main__":
         m3u_link = sys.argv[1]
         #TODO
         selected_channels = [
-            "PT: SPORT TV",
-            "PT: NBA",
-            "PT: Eleven Sports",
-            "PT: Benfica",
-            "4K: Sky Sports F1 UHD",
-            "Sky Sports Football",
-            "Sky Sports Main Event",
-            "Sky Sports Premier Leauge",
-            "ESP | DAZN",
-            "ESP | M.Deportes",
-            "ESP| LaLiga" 
+            "PT| SPORT TV",
+            "PT| DAZN",
+            "PT| Benfica",
+            "PT| BTV"
         ]
         update_playlist(m3u_link, selected_channels)
     else:
