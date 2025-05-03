@@ -48,7 +48,7 @@ def create_temp_account():
     return session, username
 
 def check_mail_and_extract(session):
-    for _ in range(20):  # Retry for 10 mins
+    for _ in range(120):  # Retry for 1 hour
         msgs = session.get(f"{MAIL_TM_API}/messages").json()
         if msgs and "hydra:member" in msgs and msgs["hydra:member"]:
             msg_id = msgs["hydra:member"][0]["id"]
@@ -63,8 +63,8 @@ def check_mail_and_extract(session):
                 )                
                 print(result.stderr)  # Print any errors if occurred
                 return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
-        time.sleep(30)
-    return "❌ Email not received after 10 minutes."
+        time.sleep(300)
+    return "❌ Email not received after 1 hour."
 
 def extract_fields(body):
     username_pattern = "Username:"
