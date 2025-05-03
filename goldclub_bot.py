@@ -57,7 +57,7 @@ def check_mail_and_extract(session):
             username, password, m3u_link = extract_fields(body)
             if username and password:
                 result = subprocess.run(
-                    ['python', 'update_playlist.py', m3u_link],
+                    ['python', 'update_playlist_goldclub.py', m3u_link],
                     capture_output=True,  # Capture the output of the script
                     text=True  # Capture the output as a string (not bytes)
                 )                

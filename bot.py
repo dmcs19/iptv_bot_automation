@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from form_bot import run_form_process
+from goldclub_bot import run_form_process
 
 BOT_TOKEN = "8020314661:AAFUpm4RJPFeMXfZMWYTdpl6LB4BtJGG-KQ"
 
