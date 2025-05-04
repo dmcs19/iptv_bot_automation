@@ -68,15 +68,16 @@ def check_mail_and_extract(session):
     return "❌ Email not received after 5 minutes."
 
 def extract_fields(body):
-    username_match = re.search(r'Username:\s*(\w+)', body)
-    password_match = re.search(r'Password:\s*(\w+)', body)
-
-    m3u_match = re.search(r'Primary:\s*(http[^\s]+m3uplus[^\s]*)', body)
+    username_match = re.search(r'Username:\s*([^\s]+)', body)
+    password_match = re.search(r'Password:\s*([^\s]+)', body)
 
     username = username_match.group(1) if username_match else None
     password = password_match.group(1) if password_match else None
-    m3u_link = m3u_match.group(1) if m3u_match else None
-    
+
+    m3u_link = None
+    if username and password:
+        m3u_link = f"http://smarters.live:80/get.php?username={username}&password={password}&type=m3uplus&output=mpegts"
+
     return username, password, m3u_link
 
 def submit_form(email, phone):
