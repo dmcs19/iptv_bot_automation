@@ -15,10 +15,10 @@ MAILSAC_API_BASE = "https://mailsac.com/api"
 
 # Generate a random Gmail alias using your base address
 def generate_gmail_alias():
-    base = "dmcsaraiva@gmail.com"
-    tag = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-    # e.g. tag+tag@gmail.com
-    return f"{tag}+{tag}@{base}"
+    base_username = "dmcsaraiva"
+    domain = "gmail.com"
+    tag = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
+    return f"{base_username}+{tag}@{domain}"
 
 # Generate a random Portuguese phone number
 def generate_random_portuguese_phone():
