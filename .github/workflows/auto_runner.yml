@@ -1,8 +1,8 @@
-name: Run Automation Every Day
+name: Run Automation Every 2 Days
 
 on:
     schedule:
-        - cron: "0 0 * * *"
+        - cron: "0 0 */2 * *"
     workflow_dispatch: # Optional manual trigger
 
 jobs:
