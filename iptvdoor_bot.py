@@ -94,21 +94,33 @@ def submit_form(email, phone):
     try:
         driver.get("https://www.iptvdoor.com/step/store-checkout-free-trial/")
 
-        wait.until(EC.presence_of_element_located((By.NAME, "billing_first_name")))
-        
+        # First name
+        wait.until(EC.visibility_of_element_located((By.NAME, "billing_first_name")))
         driver.find_element(By.NAME, "billing_first_name").send_keys("John")
-        driver.find_element(By.NAME, "billing_last_name").send_keys("John")
-        
-        country_dropdown = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".select2-selection--single")))
-        country_dropdown.click()
-        search_box = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "select2-search__field")))
+
+        # Last name
+        wait.until(EC.visibility_of_element_located((By.NAME, "billing_last_name")))
+        driver.find_element(By.NAME, "billing_last_name").send_keys("Doe")
+
+        # Country select
+        wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".select2-selection--single"))).click()
+        search_box = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "select2-search__field")))
         search_box.send_keys("Portugal")
         search_box.send_keys(Keys.ENTER)
-        
+
+        # Email
+        wait.until(EC.visibility_of_element_located((By.NAME, "billing_email")))
         driver.find_element(By.NAME, "billing_email").send_keys(email)
+
+        # Phone
+        wait.until(EC.visibility_of_element_located((By.NAME, "billing_phone")))
         driver.find_element(By.NAME, "billing_phone").send_keys(phone)
-        
-        wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button#place_order"))).click()
+
+        # Place order button
+        place_order_btn = wait.until(EC.presence_of_element_located((By.ID, "place_order")))
+        driver.execute_script("arguments[0].scrollIntoView(true);", place_order_btn)
+        time.sleep(1)
+        wait.until(EC.element_to_be_clickable((By.ID, "place_order"))).click()
 
         time.sleep(5)
     finally:
