@@ -42,5 +42,5 @@ jobs:
               env:
                   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                   CHAT_ID: ${{ secrets.CHAT_ID }}
-                  PAT: ${{ secrets.PAT }}~
+                  PAT: ${{ secrets.PAT }}
                   MAILSAC_API: ${{ secrets.MAILSAC_API}}
