@@ -32,7 +32,7 @@ def check_mail_and_extract_mailsac(mailsac_email):
     headers = {"Mailsac-Key": MAILSAC_KEY}
     inbox_url = f"{MAILSAC_API_BASE}/addresses/{mailsac_email}/messages"
     
-    for _ in range(10):  # retry ~5 minutes
+    for _ in range(5):  # retry ~25 minutes
         resp = requests.get(inbox_url, headers=headers)
         resp.raise_for_status()
         messages = resp.json()
@@ -56,9 +56,9 @@ def check_mail_and_extract_mailsac(mailsac_email):
                 print(result.stderr)
                 return f"Your Username: {username}\nYour Password: {password}\nM3U Link: {m3u_link}"
         
-        time.sleep(30)
+        time.sleep(300)
     
-    return "❌ Email not received after 5 minutes."
+    return "❌ Email not received after 25 minutes."
 
 # Extract the three fields from the email body
 def extract_fields(body):
