@@ -94,7 +94,7 @@ def submit_form(email, phone):
     try:
         driver.get("https://www.iptvdoor.com/step/store-checkout-free-trial/")
 
-        order = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button#place_order")))
+        wait.until(EC.presence_of_element_located((By.NAME, "billing_first_name")))
         
         driver.find_element(By.NAME, "billing_first_name").send_keys("John")
         driver.find_element(By.NAME, "billing_last_name").send_keys("John")
@@ -108,7 +108,7 @@ def submit_form(email, phone):
         driver.find_element(By.NAME, "billing_email").send_keys(email)
         driver.find_element(By.NAME, "billing_phone").send_keys(phone)
         
-        order.click()
+        wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button#place_order"))).click()
 
         time.sleep(5)
     finally:
