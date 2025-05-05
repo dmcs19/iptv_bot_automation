@@ -44,3 +44,4 @@ jobs:
                   CHAT_ID: ${{ secrets.CHAT_ID }}
                   PAT: ${{ secrets.PAT }}
                   MAILSAC_API: ${{ secrets.MAILSAC_API}}
+                  CAPTCHA_API: ${{ secrets.CAPTCHA_API}}

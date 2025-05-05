@@ -10,7 +10,7 @@ import subprocess
 import os
 
 MAIL_TM_API = "https://api.mail.tm"
-CAPTCHA_API = os.getenv("CAPTCHA_API").strip()
+CAPTCHA_API = os.getenv("CAPTCHA_API")
 
 def create_temp_account():
     session = requests.Session()
