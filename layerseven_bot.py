@@ -71,18 +71,12 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    options.add_argument("--headless=new")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option("useAutomationExtension", False)
+    options.add_argument("--headless=new")  # New headless mode (Chrome >=109)
     options.add_argument("--no-sandbox")
-    options.add_argument("--start-maximized")  # Start the browser maximized
-    options.add_argument("--disable-extensions")  # Disable browser extensions
-    options.add_argument("--disable-software-rasterizer")  # Disable software rendering
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, use_subprocess=False, browser_executable_path="/opt/google/chrome/google-chrome")
+    driver = uc.Chrome(options=options, use_subprocess=True, browser_executable_path="/opt/google/chrome/google-chrome")
     wait = WebDriverWait(driver, 20)
     try:
         url = "https://panel.layerseven.ai/sign-up"
