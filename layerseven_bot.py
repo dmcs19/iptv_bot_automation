@@ -71,7 +71,7 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    options.add_argument("--headless=new")  # New headless mode (Chrome >=109)
+    # options.add_argument("--headless=new")  # New headless mode (Chrome >=109)
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
