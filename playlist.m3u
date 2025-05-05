@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="" tvg-name="#### DESPORTO ####" tvg-logo="" group-title="PT| DESPORTO",#### DESPORTO ####
-http://cf.l7x.net:80/930ad164d5/663ddd005a/647695
 #EXTINF:-1 tvg-id="BenficaTV1.pt" tvg-name="PT: BENFICA TV 1" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/6512.jpg?48410" group-title="PT| DESPORTO",PT: BENFICA TV 1
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386488
 #EXTINF:-1 tvg-id="BenficaTV1.pt" tvg-name="PT: BENFICA TV 1 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/6512.jpg?17142" group-title="PT| DESPORTO",PT: BENFICA TV 1 HD
@@ -53,18 +51,6 @@ http://cf.l7x.net:80/930ad164d5/663ddd005a/386373
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386372
 #EXTINF:-1 tvg-id="SportingTV.pt" tvg-name="PT: SPORTING TV HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11222.jpg?66082" group-title="PT| DESPORTO",PT: SPORTING TV HD
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386371
-#EXTINF:-1 tvg-id="" tvg-name="PT: DAZN ELEVEN 1 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/12401.jpg?ver=50787" group-title="PT| DESPORTO",PT: DAZN ELEVEN 1 HD
-http://cf.l7x.net:80/930ad164d5/663ddd005a/525578
-#EXTINF:-1 tvg-id="" tvg-name="PT: DAZN ELEVEN 2 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/12401.jpg?ver=50787" group-title="PT| DESPORTO",PT: DAZN ELEVEN 2 HD
-http://cf.l7x.net:80/930ad164d5/663ddd005a/525577
-#EXTINF:-1 tvg-id="" tvg-name="PT: DAZN ELEVEN 3 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/12401.jpg?ver=50787" group-title="PT| DESPORTO",PT: DAZN ELEVEN 3 HD
-http://cf.l7x.net:80/930ad164d5/663ddd005a/525576
-#EXTINF:-1 tvg-id="" tvg-name="PT: DAZN ELEVEN 4 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/12401.jpg?ver=50787" group-title="PT| DESPORTO",PT: DAZN ELEVEN 4 HD
-http://cf.l7x.net:80/930ad164d5/663ddd005a/525575
-#EXTINF:-1 tvg-id="" tvg-name="PT: DAZN ELEVEN 5 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/12401.jpg?ver=50787" group-title="PT| DESPORTO",PT: DAZN ELEVEN 5 HD
-http://cf.l7x.net:80/930ad164d5/663ddd005a/525574
-#EXTINF:-1 tvg-id="" tvg-name="PT: DAZN ELEVEN 6 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/12401.jpg?ver=50787" group-title="PT| DESPORTO",PT: DAZN ELEVEN 6 HD
-http://cf.l7x.net:80/930ad164d5/663ddd005a/525573
 #EXTINF:-1 tvg-id="Eurosport1.pt" tvg-name="PT: EUROSPORT 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/1934.png?83052" group-title="PT| DESPORTO",PT: EUROSPORT 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386454
 #EXTINF:-1 tvg-id="Eurosport2.pt" tvg-name="PT: EUROSPORT 2 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/1423.png?32444" group-title="PT| DESPORTO",PT: EUROSPORT 2 4K
@@ -73,5 +59,3 @@ http://cf.l7x.net:80/930ad164d5/663ddd005a/386453
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386452
 #EXTINF:-1 tvg-id="Canal11.pt" tvg-name="PT:  Canal 11 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/10023.jpg?53334" group-title="PT| DESPORTO",PT:  Canal 11 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386507
-#EXTINF:-1 tvg-id="PFC.pt" tvg-name="PT: PFC" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11228.jpg?83689" group-title="PT| DESPORTO",PT: PFC
-http://cf.l7x.net:80/930ad164d5/663ddd005a/386409
