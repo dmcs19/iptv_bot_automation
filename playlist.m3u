@@ -1,19 +1,19 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="BenficaTV1.pt" tvg-name="PT: BENFICA TV 1" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/6512.jpg?48410" group-title="PT| DESPORTO",PT: BENFICA TV 1
+#EXTINF:-1 tvg-id="BenficaTV1.pt" tvg-name="PT: BENFICA TV 1" tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cb/40/9dcb409c-5191-90c7-be07-a50f0d7a6854/benficaTv-1x_U007emarketing-0-8-0-85-220-0.png/256x256bb.jpg" group-title="PT| DESPORTO",PT: BENFICA TV 1
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386488
-#EXTINF:-1 tvg-id="BenficaTV1.pt" tvg-name="PT: BENFICA TV 1 HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/6512.jpg?17142" group-title="PT| DESPORTO",PT: BENFICA TV 1 HD
+#EXTINF:-1 tvg-id="BenficaTV1.pt" tvg-name="PT: BENFICA TV 1 HD" tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cb/40/9dcb409c-5191-90c7-be07-a50f0d7a6854/benficaTv-1x_U007emarketing-0-8-0-85-220-0.png/256x256bb.jpg" group-title="PT| DESPORTO",PT: BENFICA TV 1 HD
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386487
-#EXTINF:-1 tvg-id="ElevenSports1.pt" tvg-name="PT: ELEVEN SPORTS 1 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11211.png?35153" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 1 4K
+#EXTINF:-1 tvg-id="ElevenSports1.pt" tvg-name="PT: ELEVEN SPORTS 1 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 1 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386461
-#EXTINF:-1 tvg-id="ElevenSports3.pt" tvg-name="PT: ELEVEN SPORTS 3 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/9996.jpg?83995" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 3 4K
+#EXTINF:-1 tvg-id="ElevenSports3.pt" tvg-name="PT: ELEVEN SPORTS 3 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 3 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386459
-#EXTINF:-1 tvg-id="ElevenSports2.pt" tvg-name="PT: ELEVEN SPORTS 2 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/9987.jpg?24346" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 2 4K
+#EXTINF:-1 tvg-id="ElevenSports2.pt" tvg-name="PT: ELEVEN SPORTS 2 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 2 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386460
-#EXTINF:-1 tvg-id="ElevenSports4.pt" tvg-name="PT: ELEVEN SPORTS 4 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/9983.jpg?28744" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 4 4K
+#EXTINF:-1 tvg-id="ElevenSports4.pt" tvg-name="PT: ELEVEN SPORTS 4 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 4 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386458
-#EXTINF:-1 tvg-id="" tvg-name="PT: ELEVEN SPORTS 5 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11216.png?86341" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 5 4K
+#EXTINF:-1 tvg-id="" tvg-name="PT: ELEVEN SPORTS 5 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 5 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386457
-#EXTINF:-1 tvg-id="" tvg-name="PT: ELEVEN SPORTS 6 4K" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11229.png?46048" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 6 4K
+#EXTINF:-1 tvg-id="" tvg-name="PT: ELEVEN SPORTS 6 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 6 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386456
 #EXTINF:-1 tvg-id="SportTVPlus.pt" tvg-name="PT: SPORT TV +" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png" group-title="PT| DESPORTO",PT: SPORT TV +
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386383
@@ -47,9 +47,9 @@ http://cf.l7x.net:80/930ad164d5/663ddd005a/386375
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386374
 #EXTINF:-1 tvg-id="SportTVNBA.pt" tvg-name="PT: SPORT TV NBA HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11230.jpg?80960" group-title="PT| DESPORTO",PT: SPORT TV NBA HD
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386373
-#EXTINF:-1 tvg-id="SportingTV.pt" tvg-name="PT: SPORTING TV" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11222.jpg?66082" group-title="PT| DESPORTO",PT: SPORTING TV
+#EXTINF:-1 tvg-id="SportingTV.pt" tvg-name="PT: SPORTING TV" tvg-logo="https://cdn6.aptoide.com/imgs/6/c/8/6c8cd63862e947be10a88eb934a20b33_icon.png?w=128" group-title="PT| DESPORTO",PT: SPORTING TV
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386372
-#EXTINF:-1 tvg-id="SportingTV.pt" tvg-name="PT: SPORTING TV HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11222.jpg?66082" group-title="PT| DESPORTO",PT: SPORTING TV HD
+#EXTINF:-1 tvg-id="SportingTV.pt" tvg-name="PT: SPORTING TV HD" tvg-logo="https://cdn6.aptoide.com/imgs/6/c/8/6c8cd63862e947be10a88eb934a20b33_icon.png?w=128" group-title="PT| DESPORTO",PT: SPORTING TV HD
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386371
 #EXTINF:-1 tvg-id="Eurosport1.pt" tvg-name="PT: EUROSPORT 4K" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed" group-title="PT| DESPORTO",PT: EUROSPORT 4K
 http://cf.l7x.net:80/930ad164d5/663ddd005a/386454
