@@ -71,7 +71,7 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--start-maximized")  # Start the browser maximized
     options.add_argument("--disable-extensions")  # Disable browser extensions
