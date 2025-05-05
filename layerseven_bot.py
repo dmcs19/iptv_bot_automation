@@ -97,10 +97,23 @@ def submit_form(email):
 
         time.sleep(3)
 
-        # Inject token into hidden textarea
+        wait.until(
+            EC.presence_of_element_located((By.ID, "g-recaptcha-response"))
+        )
+
+        # Inject the token and dispatch events
         driver.execute_script("""
-        document.getElementById('g-recaptcha-response').style.display = 'block';
-        document.getElementById('g-recaptcha-response').value = arguments[0];
+            const textarea = document.getElementById('g-recaptcha-response');
+            textarea.style.display = 'block';
+            textarea.value = arguments[0];
+
+            textarea.dispatchEvent(new Event('change', { bubbles: true }));
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+
+            const form = textarea.closest('form');
+            if (form) {
+                form.dispatchEvent(new Event('submit', { bubbles: true }));
+            }
         """, token)
                 
         button = driver.find_element(By.XPATH, "//button[contains(text(), 'Create account')]")
