@@ -71,8 +71,11 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     options.add_argument("--no-sandbox")
+    options.add_argument("--start-maximized")  # Start the browser maximized
+    options.add_argument("--disable-extensions")  # Disable browser extensions
+    options.add_argument("--disable-software-rasterizer")  # Disable software rendering
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
@@ -85,10 +88,17 @@ def submit_form(email):
         wait.until(EC.presence_of_element_located((By.NAME, "email")))
         driver.find_element(By.NAME, "email").send_keys(email)
         driver.find_element(By.NAME, "password").send_keys("Password123!")
+        
+        actions = ActionChains(driver)
+        actions.move_by_offset(100, 0).perform()  # Move the mouse
+        time.sleep(1)
+        actions.move_by_offset(-100, 0).perform()  # Move back
 
         # ▶️ Solve captcha via 2captcha
         site_key = "6Ldwf7wqAAAAANb7Y2mzgutgMalTDWxSf3v0gQQh"
         token = solve_recaptcha(site_key, url)
+
+        time.sleep(3)
 
         # Inject token into hidden textarea
         driver.execute_script("""
