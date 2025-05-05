@@ -5,10 +5,10 @@ http://cf.l7x.net:80/username/password/386488
 http://cf.l7x.net:80/username/password/386487
 #EXTINF:-1 tvg-id="ElevenSports1.pt" tvg-name="PT: ELEVEN SPORTS 1 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 1 4K
 http://cf.l7x.net:80/username/password/386461
-#EXTINF:-1 tvg-id="ElevenSports3.pt" tvg-name="PT: ELEVEN SPORTS 3 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 3 4K
-http://cf.l7x.net:80/username/password/386459
 #EXTINF:-1 tvg-id="ElevenSports2.pt" tvg-name="PT: ELEVEN SPORTS 2 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 2 4K
 http://cf.l7x.net:80/username/password/386460
+#EXTINF:-1 tvg-id="ElevenSports3.pt" tvg-name="PT: ELEVEN SPORTS 3 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 3 4K
+http://cf.l7x.net:80/username/password/386459
 #EXTINF:-1 tvg-id="ElevenSports4.pt" tvg-name="PT: ELEVEN SPORTS 4 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 4 4K
 http://cf.l7x.net:80/username/password/386458
 #EXTINF:-1 tvg-id="" tvg-name="PT: ELEVEN SPORTS 5 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277" group-title="PT| DESPORTO",PT: ELEVEN SPORTS 5 4K
