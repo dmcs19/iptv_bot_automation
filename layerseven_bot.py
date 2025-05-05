@@ -95,7 +95,7 @@ def submit_form(email):
         site_key = "6Ldwf7wqAAAAANb7Y2mzgutgMalTDWxSf3v0gQQh"
         token = solve_recaptcha(site_key, url)
 
-        time.sleep(3)
+        time.sleep(5)
 
         wait.until(
             EC.presence_of_element_located((By.ID, "g-recaptcha-response"))
@@ -103,18 +103,24 @@ def submit_form(email):
 
         # Inject the token and dispatch events
         driver.execute_script("""
-            const textarea = document.getElementById('g-recaptcha-response');
-            textarea.style.display = 'block';
-            textarea.value = arguments[0];
+            // Set token
+            document.getElementById('g-recaptcha-response').style.display = 'block';
+            document.getElementById('g-recaptcha-response').value = arguments[0];
 
-            textarea.dispatchEvent(new Event('change', { bubbles: true }));
-            textarea.dispatchEvent(new Event('input', { bubbles: true }));
-
-            const form = textarea.closest('form');
-            if (form) {
-                form.dispatchEvent(new Event('submit', { bubbles: true }));
+            // Trigger Google's internal callback
+            const recaptchaCallback = document.querySelector('.g-recaptcha').getAttribute('data-callback');
+            if (recaptchaCallback && typeof window[recaptchaCallback] === 'function') {
+                window[recaptchaCallback](arguments[0]);
             }
+
+            // Dispatch events to notify any Vue/React listeners
+            const textarea = document.getElementById('g-recaptcha-response');
+            ['change', 'input'].forEach(evtType => {
+                textarea.dispatchEvent(new Event(evtType, { bubbles: true }));
+            });
         """, token)
+
+        time.sleep(5)
                 
         button = driver.find_element(By.XPATH, "//button[contains(text(), 'Create account')]")
         button.click()
