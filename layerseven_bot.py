@@ -76,7 +76,7 @@ def submit_form(email):
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, use_subprocess=True, browser_executable_path="/opt/google/chrome/google-chrome")
+    driver = uc.Chrome(options=options, browser_executable_path="/opt/google/chrome/google-chrome")
     wait = WebDriverWait(driver, 20)
     try:
         url = "https://panel.layerseven.ai/sign-up"

@@ -37,11 +37,15 @@ jobs:
                   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                   sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
 
-            - name: Run the automation
-              run: python auto-run.py
+            - name: Run the automation with Xvfb
+              run: |
+                Xvfb :99 -screen 0 1920x1080x24 &
+                export DISPLAY=:99
+                python auto-run.py
               env:
-                  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-                  CHAT_ID: ${{ secrets.CHAT_ID }}
-                  PAT: ${{ secrets.PAT }}
-                  MAILSAC_API: ${{ secrets.MAILSAC_API}}
-                  CAPTCHA_API: ${{ secrets.CAPTCHA_API}}
+                DISPLAY: :99
+                BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+                CHAT_ID: ${{ secrets.CHAT_ID }}
+                PAT: ${{ secrets.PAT }}
+                MAILSAC_API: ${{ secrets.MAILSAC_API }}
+                CAPTCHA_API: ${{ secrets.CAPTCHA_API }}
