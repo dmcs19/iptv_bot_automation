@@ -98,9 +98,7 @@ def submit_form(email):
         document.getElementById('g-recaptcha-response').style.display = 'block';
         document.getElementById('g-recaptcha-response').value = arguments[0];
         """, token)
-        
-        time.sleep(1)
-        
+                
         button = driver.find_element(By.XPATH, "//button[contains(text(), 'Create account')]")
         button.click()
         
