@@ -1,61 +1,61 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="BTV1.HD.pt" tvg-name="PT: BENFICA TV 1" tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cb/40/9dcb409c-5191-90c7-be07-a50f0d7a6854/benficaTv-1x_U007emarketing-0-8-0-85-220-0.png/256x256bb.jpg",PT: BENFICA TV 1
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386488
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386488
 #EXTINF:-1 tvg-id="BTV1.HD.pt" tvg-name="PT: BENFICA TV 1 HD" tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cb/40/9dcb409c-5191-90c7-be07-a50f0d7a6854/benficaTv-1x_U007emarketing-0-8-0-85-220-0.png/256x256bb.jpg",PT: BENFICA TV 1 HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386487
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386487
 #EXTINF:-1 tvg-id="DAZN.1.pt" tvg-name="PT: ELEVEN SPORTS 1 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 1 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386461
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386461
 #EXTINF:-1 tvg-id="DAZN.2.pt" tvg-name="PT: ELEVEN SPORTS 2 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 2 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386460
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386460
 #EXTINF:-1 tvg-id="DAZN.3.pt" tvg-name="PT: ELEVEN SPORTS 3 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 3 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386459
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386459
 #EXTINF:-1 tvg-id="DAZN.4.pt" tvg-name="PT: ELEVEN SPORTS 4 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 4 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386458
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386458
 #EXTINF:-1 tvg-id="DAZN.5.pt" tvg-name="PT: ELEVEN SPORTS 5 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 5 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386457
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386457
 #EXTINF:-1 tvg-id="DAZN.6.pt" tvg-name="PT: ELEVEN SPORTS 6 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 6 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386456
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386456
 #EXTINF:-1 tvg-id="SPORT.TV+.HD.pt" tvg-name="PT: SPORT TV +" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV +
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386383
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386383
 #EXTINF:-1 tvg-id="SPORT.TV+.HD.pt" tvg-name="PT: SPORT TV + 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV + 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386382
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386382
 #EXTINF:-1 tvg-id="SPORT.TV1.HD.pt" tvg-name="PT: SPORT TV 1 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 1 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/589151
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/589151
 #EXTINF:-1 tvg-id="SPORT.TV1.HD.pt" tvg-name="PT: SPORT TV 1" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 1
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386381
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386381
 #EXTINF:-1 tvg-id="SPORT.TV2.HD.pt" tvg-name="PT: SPORT TV 2 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 2 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/589152
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/589152
 #EXTINF:-1 tvg-id="SPORT.TV2.HD.pt" tvg-name="PT: SPORT TV 2 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 2 HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386380
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386380
 #EXTINF:-1 tvg-id="SPORT.TV3.HD.pt" tvg-name="PT: SPORT TV 3 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 3 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386379
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386379
 #EXTINF:-1 tvg-id="SPORT.TV3.HD.pt" tvg-name="PT: SPORT TV 3 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 3 HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/589153
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/589153
 #EXTINF:-1 tvg-id="SPORT.TV4.HD.pt" tvg-name="PT: SPORT TV 4 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 4 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386378
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386378
 #EXTINF:-1 tvg-id="SPORT.TV5.HD.pt" tvg-name="PT: SPORT TV 5 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 5 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386377
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386377
 #EXTINF:-1 tvg-id="SPORT.TV5.HD.pt" tvg-name="PT: SPORT TV 5 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 5 HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/589154
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/589154
 #EXTINF:-1 tvg-id="SPORT.TV6.HD.pt" tvg-name="PT: SPORT TV 6 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 6 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386376
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386376
 #EXTINF:-1 tvg-id="SPORT.TV6.HD.pt" tvg-name="PT: SPORT TV 6 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 6 HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/589155
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/589155
 #EXTINF:-1 tvg-id="SPORT.TV6.HD.pt" tvg-name="PT: SPORT TV 6 HD LOW" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 6 HD LOW
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386375
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386375
 #EXTINF:-1 tvg-id="Sport.TV.NBA.pt" tvg-name="PT: SPORT TV NBA" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11230.jpg?80960",PT: SPORT TV NBA
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386374
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386374
 #EXTINF:-1 tvg-id="Sport.TV.NBA.pt" tvg-name="PT: SPORT TV NBA HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11230.jpg?80960",PT: SPORT TV NBA HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386373
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386373
 #EXTINF:-1 tvg-id="Sporting.TV.HD.pt" tvg-name="PT: SPORTING TV" tvg-logo="https://cdn6.aptoide.com/imgs/6/c/8/6c8cd63862e947be10a88eb934a20b33_icon.png?w=128",PT: SPORTING TV
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386372
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386372
 #EXTINF:-1 tvg-id="Sporting.TV.HD.pt" tvg-name="PT: SPORTING TV HD" tvg-logo="https://cdn6.aptoide.com/imgs/6/c/8/6c8cd63862e947be10a88eb934a20b33_icon.png?w=128",PT: SPORTING TV HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386371
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386371
 #EXTINF:-1 tvg-id="Eurosport.1.HD.pt" tvg-name="PT: EUROSPORT 4K" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",PT: EUROSPORT 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386454
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386454
 #EXTINF:-1 tvg-id="Eurosport.1.HD.pt" tvg-name="PT: EUROSPORT HD" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",PT: EUROSPORT HD
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386452
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386452
 #EXTINF:-1 tvg-id="Eurosport.2.HD.pt" tvg-name="PT: EUROSPORT 2 4K" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",PT: EUROSPORT 2 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386453
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386453
 #EXTINF:-1 tvg-id="Canal.11.HD.pt" tvg-name="PT:  Canal 11 4K" tvg-logo="https://play-lh.googleusercontent.com/CovhI5pBip97t5dAc5d5vrNPgsEGDAlyND19nJNBZNtNHp0vmO9-0AyaQU-8Y352rnc=w256",PT:  Canal 11 4K
-http://cf.l7x.net:80/56b49c2db1/4067ed05b32c3830/386507
+http://cf.l7x.net:80/a643c6e464/5a06e6df831d6c26/386507
