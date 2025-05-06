@@ -1,13 +1,15 @@
 import requests
 import time
 import undetected_chromedriver as uc
+from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import asyncio
 import subprocess
 import os
+uc.Chrome.__del__ = lambda self: None
 
 MAIL_TM_API = "https://api.mail.tm"
 CAPTCHA_API = os.getenv("CAPTCHA_API")
@@ -57,7 +59,7 @@ def solve_recaptcha(site_key, page_url):
     captcha_id = captcha_id["request"]
 
     # Wait for result
-    for _ in range(20):
+    for _ in range(30):
         time.sleep(5)
         resp = requests.get("http://2captcha.com/res.php", params={
             "key": CAPTCHA_API,
@@ -71,7 +73,7 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    # options.add_argument("--headless=new")  # New headless mode (Chrome >=109)
+    # options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
@@ -95,7 +97,7 @@ def submit_form(email):
         site_key = "6Ldwf7wqAAAAANb7Y2mzgutgMalTDWxSf3v0gQQh"
         token = solve_recaptcha(site_key, url)
 
-        time.sleep(5)
+        time.sleep(3)
 
         wait.until(
             EC.presence_of_element_located((By.ID, "g-recaptcha-response"))
@@ -120,31 +122,45 @@ def submit_form(email):
             });
         """, token)
 
-        time.sleep(5)
+        time.sleep(3)
                 
         button = driver.find_element(By.XPATH, "//button[contains(text(), 'Create account')]")
         button.click()
         
-        orders_link = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//a[contains(text(), 'Orders')]")
-        ))
-        orders_link.click()
+        time.sleep(1)
+                
+        order_links = driver.find_elements(By.CSS_SELECTOR, "a[href='/orders']")
+        if len(order_links) > 1:
+            order_links[1].click()  # Clicking the second element in the list
+        else:
+            print("Second element with href='/orders' not found.")
         
-        free_trial_link = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//a[contains(text(), 'Request free trial')]")
-        ))
-        free_trial_link.click()
-        
-        view_accounts_button = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//button[contains(text(), 'View Accounts')]")
-        ))
-        view_accounts_button.click()
+        free_trial = driver.find_elements(By.CSS_SELECTOR, "a[href='/checkout?free-trial=1']")
+        if len(free_trial) > 1:
+            free_trial[1].click()  # Clicking the second element in the list
+        else:
+            print("Second element with href='/checkout?free-trial=1' not found.")
 
-        username_element = driver.find_element(By.XPATH, "//p[b[text()='Username:']]")
-        username = username_element.text.split(":")[1].strip()
-        password_element = driver.find_element(By.XPATH, "//p[b[text()='Password:']]")
-        password = password_element.text.split(":")[1].strip()
-        
+        xtreme_cells = driver.find_elements(By.XPATH, "//td[contains(., 'Username:')]")
+
+        if xtreme_cells:
+            # Extract the inner HTML of the first matching <td>
+            td_html = xtreme_cells[0].get_attribute("innerHTML")
+            soup = BeautifulSoup(td_html, "html.parser")
+
+            # Extract values by label
+            def extract_value(label):
+                tag = soup.find("b", string=lambda t: label in t)
+                if tag and tag.next_sibling:
+                    return tag.next_sibling.strip()
+                return ""
+
+            username = extract_value("Username:")
+            password = extract_value("Password:")
+
+        else:
+            raise Exception("Could not extract credentials, stopping process.")
+
         subprocess.run(
                     ['python', 'update_playlist_layerseven.py', username, password],
                     capture_output=True,
