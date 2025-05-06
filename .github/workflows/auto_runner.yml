@@ -1,4 +1,4 @@
-name: Run Automation Every 2 Days
+name: Run Automation Every Day
 
 on:
     schedule:
