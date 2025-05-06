@@ -4,9 +4,6 @@ import base64
 import os
 import gzip
 from io import BytesIO
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Environment and GitHub details
 PAT = os.getenv("PAT")
