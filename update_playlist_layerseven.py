@@ -2,7 +2,13 @@ import sys
 import requests
 import base64
 import os
+import gzip
+from io import BytesIO
+from dotenv import load_dotenv
 
+load_dotenv()
+
+# Environment and GitHub details
 PAT = os.getenv("PAT")
 GITHUB_REPO_OWNER = 'dmcs19'
 GITHUB_REPO_NAME = 'iptv_bot_automation'
@@ -38,7 +44,6 @@ def upload_to_github(file_name, file_content):
         response = requests.get(f'{GITHUB_API_URL}{file_name}', headers={
             "Authorization": f"token {PAT}"
         })
-        
         if response.status_code == 200:
             file_data = response.json()
             existing_file_sha = file_data['sha']
@@ -55,7 +60,7 @@ def upload_to_github(file_name, file_content):
     encoded_content = base64.b64encode(file_content.encode('utf-8')).decode('utf-8')
     
     payload = {
-        "message": "Update playlist.m3u with credentials",
+        "message": f"Upload {file_name}",
         "content": encoded_content
     }
 
@@ -75,6 +80,22 @@ def upload_to_github(file_name, file_content):
     except requests.exceptions.RequestException as e:
         print(f"Error during GitHub upload: {e}")
 
+def download_and_extract_gz(url):
+    try:
+        print(f"Downloading: {url}")
+        response = requests.get(url)
+        if response.status_code == 200:
+            with gzip.GzipFile(fileobj=BytesIO(response.content)) as gz:
+                xml_content = gz.read().decode('utf-8')
+                print("Successfully extracted XML content.")
+                return xml_content
+        else:
+            print(f"Failed to download file. Status Code: {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"Error downloading or extracting .gz file: {e}")
+        return None
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python script.py <username> <password>")
@@ -83,7 +104,14 @@ if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
 
+    # Step 1: Handle M3U Playlist Template
     template_content = download_file_from_github("playlist_template.m3u")
     if template_content:
         updated_content = replace_credentials(template_content, username, password)
         upload_to_github("playlist.m3u", updated_content)
+
+    # Step 2: Download and upload EPG XML
+    gz_url = "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz"
+    xml_content = download_and_extract_gz(gz_url)
+    if xml_content:
+        upload_to_github("epg_ripper_PT1.xml", xml_content)
