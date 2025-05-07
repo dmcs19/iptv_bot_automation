@@ -2,8 +2,8 @@ import asyncio
 import requests
 # from goldclub_bot import run_form_process
 # from tellystudio_bot import run_form_process
-from layerseven_bot import run_form_process
-# from iptvdoor_bot import run_form_process
+# from layerseven_bot import run_form_process
+from iptvdoor_bot import run_form_process
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
