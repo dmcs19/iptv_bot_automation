@@ -8,17 +8,25 @@ GITHUB_REPO_OWNER = 'dmcs19'
 GITHUB_REPO_NAME = 'iptv_bot_automation'
 GITHUB_API_URL = f'https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/'
 
-def update_playlist(m3u_link, allowed_channels):
-    print(f"Downloading M3U file from: {m3u_link}")
-    m3u_content = download_m3u(m3u_link)
-    if m3u_content:
-        filtered_content = filter_m3u_content(m3u_content, allowed_channels)
-        if filtered_content:
-            upload_to_github("playlist.m3u", filtered_content)
+def download_file_from_github(file_name):
+    try:
+        response = requests.get(f'{GITHUB_API_URL}{file_name}', headers={
+            "Authorization": f"token {PAT}"
+        })
+        if response.status_code == 200:
+            file_data = response.json()
+            content = base64.b64decode(file_data['content']).decode('utf-8')
+            print(f"Successfully downloaded {file_name} from GitHub.")
+            return content
         else:
-            print("No valid content found to upload.")
-    else:
-        print("Failed to download M3U content.")
+            print(f"Failed to download {file_name}. Status Code: {response.status_code}")
+            return None
+    except requests.exceptions.RequestException as e:
+        print(f"Error while downloading {file_name} from GitHub: {e}")
+        return None
+
+def replace_credentials(template_content, username, password):
+    return template_content.replace("username", username).replace("password", password)
 
 def download_m3u(m3u_url):
     try:
@@ -30,32 +38,6 @@ def download_m3u(m3u_url):
         print(f"Error while downloading M3U file from {m3u_url}: {e}")
         return None
 
-def filter_m3u_content(m3u_content, allowed_channels):
-    lines = m3u_content.strip().splitlines()
-    filtered_lines = []
-
-    if len(lines) >= 2:
-        filtered_lines.extend(lines[:2])
-    else:
-        print("M3U content seems too short or malformed.")
-        return None
-
-    i = 2
-    while i < len(lines) - 1:
-        line = lines[i]
-        if line.startswith("#EXTINF"):
-            channel_name = line.split(",")[-1].strip()
-            url = lines[i + 1]
-
-            if any(partial.lower() in channel_name.lower() for partial in allowed_channels):
-                filtered_lines.append(line)
-                filtered_lines.append(url)
-            i += 2
-        else:
-            i += 1
-
-    return "\n".join(filtered_lines) if len(filtered_lines) > 2 else None
-
 def upload_to_github(file_name, file_content):
     if not PAT:
         print("Error: GitHub token is missing.")
@@ -63,21 +45,17 @@ def upload_to_github(file_name, file_content):
 
     existing_file_sha = None
     try:
-        # Get the metadata of the file (if it exists)
         response = requests.get(f'{GITHUB_API_URL}{file_name}', headers={
             "Authorization": f"token {PAT}"
         })
-        
         if response.status_code == 200:
-            # File exists, extract the SHA value
             file_data = response.json()
             existing_file_sha = file_data['sha']
             print(f"File '{file_name}' already exists. SHA: {existing_file_sha}")
         elif response.status_code == 404:
-            print(f"File '{file_name}' does not exist. Will create a new file.")
+            print(f"File '{file_name}' does not exist. Creating a new one.")
         else:
-            print(f"Failed to check file existence. HTTP Status Code: {response.status_code}")
-            print(response.json())
+            print(f"GitHub API error while checking file: {response.status_code}")
             return
     except requests.exceptions.RequestException as e:
         print(f"Error during GitHub API request: {e}")
@@ -86,35 +64,36 @@ def upload_to_github(file_name, file_content):
     encoded_content = base64.b64encode(file_content.encode('utf-8')).decode('utf-8')
     
     payload = {
-        "message": "Update playlist.m3u",
+        "message": f"Upload {file_name}",
         "content": encoded_content
     }
 
     if existing_file_sha:
         payload["sha"] = existing_file_sha
-        print(f"Updating file '{file_name}' with SHA: {existing_file_sha}")
 
     try:
         response = requests.put(f'{GITHUB_API_URL}{file_name}', headers={
             "Authorization": f"token {PAT}"
         }, json=payload)
         
-        if response.status_code == 201 or response.status_code == 200:
-            print(f"File uploaded successfully to {GITHUB_REPO_NAME}/{file_name}")
+        if response.status_code in [200, 201]:
+            print(f"Successfully uploaded {file_name} to GitHub.")
         else:
-            print(f"Failed to upload file. HTTP Status Code: {response.status_code}")
+            print(f"Failed to upload {file_name}. Status: {response.status_code}")
             print(response.json())
     except requests.exceptions.RequestException as e:
-        print(f"Error during the GitHub upload process: {e}")
+        print(f"Error during GitHub upload: {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        m3u_link = sys.argv[1]
-        selected_channels = [
-            "PT| SPORT TV",
-            "PT| DAZN",
-            "PT| BTV"
-        ]
-        update_playlist(m3u_link, selected_channels)
-    else:
-        print("Error: M3U link argument missing.")
+    if len(sys.argv) != 3:
+        print("Usage: python script.py <username> <password>")
+        sys.exit(1)
+
+    username = sys.argv[1]
+    password = sys.argv[2]
+
+    # Step 1: Handle M3U Playlist Template
+    template_content = download_file_from_github("playlist1_template.m3u")
+    if template_content:
+        updated_content = replace_credentials(template_content, username, password)
+        upload_to_github("playlist1.m3u", updated_content)
