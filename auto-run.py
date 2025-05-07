@@ -4,6 +4,7 @@ import requests
 # from tellystudio_bot import run_form_process as run_tellystudio
 from layerseven_bot import run_form_process as run_layerseven
 from iptvdoor_bot import run_form_process as run_iptvdoor
+from tereatv_bot import run_form_process as run_tereatv
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -21,8 +22,9 @@ def send_to_telegram(message):
 
 async def run_all_bots():
     bots = {
-        "IPTVDoor": run_iptvdoor,
-        "LayerSeven": run_layerseven
+        # "IPTVDoor": run_iptvdoor,
+        "TereaTv": run_tereatv
+        # "LayerSeven": run_layerseven
     }
 
     for name, func in bots.items():
