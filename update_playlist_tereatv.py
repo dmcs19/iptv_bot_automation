@@ -75,7 +75,7 @@ def upload_to_github(file_name, file_content):
         print(f"Error during GitHub upload: {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 5:
         sys.exit(1)
 
     username = sys.argv[1]

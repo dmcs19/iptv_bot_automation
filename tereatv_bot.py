@@ -61,7 +61,6 @@ def check_mail_and_extract(session):
                     capture_output=True,  # Capture the output of the script
                     text=True  # Capture the output as a string (not bytes)
                 )                
-                print(result.stderr)  # Print any errors if occurred
                 return f"Your Username: {username}\nYour Password: {password}\nServer: {main_server}\nBackup Server: {backup_server}"
         time.sleep(30)
     return "❌ Email not received after 5 minutes."
