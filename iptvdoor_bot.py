@@ -68,15 +68,20 @@ def check_mail_and_extract(session):
     return "❌ Email not received after 5 minutes."
 
 def extract_fields(body):
-    username_match = re.search(r'Username:\s*([^\s]+)', body)
-    password_match = re.search(r'Password:\s*([^\s]+)', body)
-    primary_url_match = re.search(r'Primary URL:\s*(http[^\s]+)', body)
-    backup_url_match = re.search(r'Backup URL:\s*(http[^\s]+)', body)
+    username_match = re.search(r'(?:Your\s+)?Username:\s*([^\s]+)', body)
+    password_match = re.search(r'(?:Your\s+)?Password:\s*([^\s]+)', body)
+    
+    # Match either 'Primary URL' or 'Server' and stop at the next 'http' or newline
+    primary_url_match = re.search(r'(?:Primary URL|Server):\s*(http[^\s]+)', body)
+    backup_url_match = re.search(r'(?:Backup URL|Backup Server):\s*(http[^\s]+)', body)
+
+    def clean_url(url):
+        return url[:url.find("http", 5)] if url.count("http") > 1 else url
 
     username = username_match.group(1) if username_match else None
     password = password_match.group(1) if password_match else None
-    main_server = primary_url_match.group(1) if primary_url_match else None
-    backup_server = backup_url_match.group(1) if backup_url_match else None
+    main_server = clean_url(primary_url_match.group(1)) if primary_url_match else None
+    backup_server = clean_url(backup_url_match.group(1)) if backup_url_match else None
 
     return username, password, main_server, backup_server
 
