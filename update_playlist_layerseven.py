@@ -28,7 +28,7 @@ def download_file_from_github(file_name):
         print(f"Error while downloading {file_name} from GitHub: {e}")
         return None
 
-def replace_credentials(template_content, username, password):
+def replace_credentials(template_content, username, password, server):
     return template_content.replace("username", username).replace("password", password).replace("server", server)
 
 def upload_to_github(file_name, file_content):
