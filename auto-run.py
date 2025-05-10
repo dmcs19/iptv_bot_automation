@@ -22,9 +22,9 @@ def send_to_telegram(message):
 
 async def run_all_bots():
     bots = {
-        # "IPTVDoor": run_iptvdoor
-        "TereaTv": run_tereatv
-        # "LayerSeven": run_layerseven
+        "IPTVDoor": run_iptvdoor,
+        "TereaTv": run_tereatv,
+        "LayerSeven": run_layerseven
     }
 
     for name, func in bots.items():
