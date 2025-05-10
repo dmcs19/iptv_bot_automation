@@ -25,18 +25,8 @@ def download_file_from_github(file_name):
         print(f"Error while downloading {file_name} from GitHub: {e}")
         return None
 
-def replace_credentials(template_content, username, password):
-    return template_content.replace("username", username).replace("password", password)
-
-def download_m3u(m3u_url):
-    try:
-        response = requests.get(m3u_url)
-        response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-        print(f"Successfully downloaded M3U file from: {m3u_url}")
-        return response.text
-    except requests.exceptions.RequestException as e:
-        print(f"Error while downloading M3U file from {m3u_url}: {e}")
-        return None
+def replace_credentials(template_content, username, password, server):
+    return template_content.replace("username", username).replace("password", password).replace("server", server)
 
 def upload_to_github(file_name, file_content):
     if not PAT:
@@ -91,9 +81,13 @@ if __name__ == "__main__":
 
     username = sys.argv[1]
     password = sys.argv[2]
+    main_server = sys.argv[3]
+    backup_server = sys.argv[4]
 
     # Step 1: Handle M3U Playlist Template
-    template_content = download_file_from_github("playlist2_template.m3u")
+    template_content = download_file_from_github("playlist_tereatv_template.m3u")
     if template_content:
-        updated_content = replace_credentials(template_content, username, password)
-        upload_to_github("playlist2.m3u", updated_content)
+        updated_content = replace_credentials(template_content, username, password, main_server)
+        upload_to_github("playlist3.m3u", updated_content)
+        updated_content = replace_credentials(template_content, username, password, backup_server)
+        upload_to_github("playlist4.m3u", updated_content)

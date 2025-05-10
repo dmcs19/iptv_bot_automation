@@ -54,29 +54,39 @@ def check_mail_and_extract(session):
             msg_id = msgs["hydra:member"][0]["id"]
             msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
             body = msg.get("text", "") or msg.get("html", "")
-            username, password = extract_fields(body)
+            username, password, main_server, backup_server = extract_fields(body)
             if username and password:
                 result = subprocess.run(
-                    ['python', 'update_playlist_tereatv.py', username, password],
+                    ['python', 'update_playlist_tereatv.py', username, password, main_server, backup_server],
                     capture_output=True,  # Capture the output of the script
                     text=True  # Capture the output as a string (not bytes)
                 )                
                 print(result.stderr)  # Print any errors if occurred
-                return f"Your Username: {username}\nYour Password: {password}"
+                return f"Your Username: {username}\nYour Password: {password}\nServer: {main_server}\nBackup Server: {backup_server}"
         time.sleep(30)
     return "❌ Email not received after 5 minutes."
 
 def extract_fields(body):
     username_pattern = "Your Username :"
     password_pattern = "Your Password :"
-    username = password = None
+    portal_url1_pattern = "Portal URL1:"
+    portal_url2_pattern = "Portal URL2:"
+    
+    username = password = portal_url1 = portal_url2 = None
     lines = body.splitlines()
+    
     for line in lines:
         if username_pattern in line:
             username = line.split(username_pattern)[-1].strip()
         elif password_pattern in line:
             password = line.split(password_pattern)[-1].strip()
-    return username, password
+        elif portal_url1_pattern in line:
+            portal_url1 = line.split(portal_url1_pattern)[-1].strip()
+        elif portal_url2_pattern in line:
+            portal_url2 = line.split(portal_url2_pattern)[-1].strip()
+    
+    return username, password, portal_url1, portal_url2
+
 
 def submit_form(email, phone):
     options = uc.ChromeOptions()
@@ -135,8 +145,4 @@ async def run_form_process():
 
     session.close()
     
-    url_host = f"http://xline.live:80\nhttp://yourline.live:8089"
-
-    # Add it to the top of the result
-    result = f"URL Host: {url_host}\n{result}"
     return result
