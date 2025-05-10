@@ -76,7 +76,6 @@ def upload_to_github(file_name, file_content):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python script.py <username> <password>")
         sys.exit(1)
 
     username = sys.argv[1]
@@ -84,7 +83,6 @@ if __name__ == "__main__":
     main_server = sys.argv[3]
     backup_server = sys.argv[4]
 
-    # Step 1: Handle M3U Playlist Template
     template_content = download_file_from_github("playlist_tereatv_template.m3u")
     if template_content:
         updated_content = replace_credentials(template_content, username, password, main_server)
