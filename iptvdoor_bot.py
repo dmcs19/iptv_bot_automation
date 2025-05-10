@@ -55,30 +55,30 @@ def check_mail_and_extract(session):
             msg_id = msgs["hydra:member"][0]["id"]
             msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
             body = msg.get("text", "") or msg.get("html", "")
-            username, password, m3u_link = extract_fields(body)
+            username, password, main_server, backup_server = extract_fields(body)
             if username and password:
                 result = subprocess.run(
-                    ['python', 'update_playlist_iptvdoor.py', username, password],
+                    ['python', 'update_playlist_iptvdoor.py', username, password, main_server, backup_server],
                     capture_output=True,  # Capture the output of the script
                     text=True  # Capture the output as a string (not bytes)
                 )                
                 print(result.stderr)  # Print any errors if occurred
-                return f"Your Username: {username}\nYour Password: {password}\nM3u Link: {m3u_link}"
+                return f"Your Username: {username}\nYour Password: {password}\nServer: {main_server}\nBackup Server:{backup_server}"
         time.sleep(30)
     return "❌ Email not received after 5 minutes."
 
 def extract_fields(body):
     username_match = re.search(r'Username:\s*([^\s]+)', body)
     password_match = re.search(r'Password:\s*([^\s]+)', body)
+    primary_url_match = re.search(r'Primary URL:\s*(http[^\s]+)', body)
+    backup_url_match = re.search(r'Backup URL:\s*(http[^\s]+)', body)
 
     username = username_match.group(1) if username_match else None
     password = password_match.group(1) if password_match else None
+    main_server = primary_url_match.group(1) if primary_url_match else None
+    backup_server = backup_url_match.group(1) if backup_url_match else None
 
-    m3u_link = None
-    if username and password:
-        m3u_link = f"http://smarters.live:80/get.php?username={username}&password={password}&type=m3uplus&output=mpegts"
-
-    return username, password, m3u_link
+    return username, password, main_server, backup_server
 
 def submit_form(email, phone):
     options = uc.ChromeOptions()
@@ -141,8 +141,4 @@ async def run_form_process():
 
     session.close()
     
-    url_host = f"http://smarters.live:80"
-
-    # Add it to the top of the result
-    result = f"URL Host: {url_host}\n{result}"
     return result
