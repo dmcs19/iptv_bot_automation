@@ -157,16 +157,17 @@ def submit_form(email):
 
             username = extract_value("Username:")
             password = extract_value("Password:")
+            server = extract_value("Server URL:")
 
         else:
             raise Exception("Could not extract credentials, stopping process.")
 
         subprocess.run(
-                    ['python', 'update_playlist_layerseven.py', username, password],
+                    ['python', 'update_playlist_layerseven.py', username, password, server, "http://hi-world.me"],
                     capture_output=True,
                     text=True
                 )
-        return f"Your Username: {username}\nYour Password: {password}"
+        return f"Your Username: {username}\nYour Password: {password}\nServer: {server}"
     finally:
         driver.quit()
 
@@ -179,9 +180,5 @@ async def run_form_process():
     result = await loop.run_in_executor(None, submit_form, email)
 
     session.close()
-    
-    url_host = f"http://hi-world.me"
 
-    # Add it to the top of the result
-    result = f"URL Host: {url_host}\n{result}"
     return result

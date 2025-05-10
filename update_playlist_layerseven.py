@@ -29,7 +29,7 @@ def download_file_from_github(file_name):
         return None
 
 def replace_credentials(template_content, username, password):
-    return template_content.replace("username", username).replace("password", password)
+    return template_content.replace("username", username).replace("password", password).replace("server", server)
 
 def upload_to_github(file_name, file_content):
     if not PAT:
@@ -94,18 +94,22 @@ def download_and_extract_gz(url):
         return None
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python script.py <username> <password>")
+    if len(sys.argv) != 5:
+        print("Usage: python script.py <username> <password> <server> <backup_server>")
         sys.exit(1)
 
     username = sys.argv[1]
     password = sys.argv[2]
+    server = sys.argv[3]
+    backup_server = sys.argv[4]
 
     # Step 1: Handle M3U Playlist Template
-    template_content = download_file_from_github("playlist_template.m3u")
+    template_content = download_file_from_github("playlist_layerseven_template.m3u")
     if template_content:
-        updated_content = replace_credentials(template_content, username, password)
+        updated_content = replace_credentials(template_content, username, password, server)
         upload_to_github("playlist.m3u", updated_content)
+        updated_content = replace_credentials(template_content, username, password, server)
+        upload_to_github("playlist5.m3u", updated_content)
 
     # Step 2: Download and upload EPG XML
     gz_url = "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz"
