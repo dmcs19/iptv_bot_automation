@@ -1,5 +1,7 @@
 import requests
 import time
+import random
+import string
 import undetected_chromedriver as uc
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
@@ -11,38 +13,14 @@ import subprocess
 import os
 uc.Chrome.__del__ = lambda self: None
 
-MAIL_TM_API = "https://api.mail.tm"
 CAPTCHA_API = os.getenv("CAPTCHA_API")
 
-def create_temp_account():
-    session = requests.Session()
-    
-    # 🔁 Get a valid domain
-    domains_resp = session.get(f"{MAIL_TM_API}/domains")
-    domains = domains_resp.json()["hydra:member"]
-    if not domains:
-        raise Exception("No available domains from mail.tm")
-    domain = domains[0]["domain"]  # just pick the first valid domain
 
-    username = f"user{int(time.time())}@{domain}"
-    password = "TempPassword123!"
+def generate_unique_email():
+    timestamp = int(time.time() * 1000)
+    random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+    return f"user{timestamp}{random_suffix}@example.com"
 
-    response = session.post(f"{MAIL_TM_API}/accounts", json={
-        "address": username,
-        "password": password
-    })
-
-    if response.status_code != 201:
-        raise Exception(f"Failed to create temp mail: {response.text}")
-
-    # 🔐 Authenticate to get token
-    token_resp = session.post(f"{MAIL_TM_API}/token", json={
-        "address": username,
-        "password": password
-    })
-    token = token_resp.json()["token"]
-    session.headers.update({"Authorization": f"Bearer {token}"})
-    return session, username
 
 def solve_recaptcha(site_key, page_url):
     captcha_id = requests.post("http://2captcha.com/in.php", data={
@@ -174,11 +152,9 @@ def submit_form(email):
 ### 🔁 Async wrapper function
 async def run_form_process():
     loop = asyncio.get_event_loop()
-    session, email = await loop.run_in_executor(None, create_temp_account)
+    email = generate_unique_email()
 
     # Submit form in a thread
     result = await loop.run_in_executor(None, submit_form, email)
-
-    session.close()
 
     return result
