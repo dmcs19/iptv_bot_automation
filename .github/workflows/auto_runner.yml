@@ -1,4 +1,4 @@
-name: Run Automation Every Day
+name: Update IPTV playlists
 
 on:
     #schedule:
