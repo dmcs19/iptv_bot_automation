@@ -6,3 +6,5 @@ def update_epg():
                     capture_output=True,
                     text=True
                 )
+    
+    return
