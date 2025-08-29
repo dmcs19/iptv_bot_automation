@@ -5,6 +5,7 @@ from tellystudio_bot import run_form_process as run_tellystudio
 from layerseven_bot import run_form_process as run_layerseven
 from iptvdoor_bot import run_form_process as run_iptvdoor
 from tereatv_bot import run_form_process as run_tereatv
+from epg_bot import update_epg as run_epg
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -24,7 +25,8 @@ async def run_all_bots():
     bots = {
         #"IPTVDoor": run_iptvdoor,
         #"TereaTv": run_tereatv
-        "LayerSeven": run_layerseven
+        "LayerSeven": run_layerseven,
+        "EPG": run_epg
     }
 
     for name, func in bots.items():
