@@ -7,4 +7,4 @@ def update_epg():
                     text=True
                 )
     
-    return
+    return f"EPG updated successfully."
