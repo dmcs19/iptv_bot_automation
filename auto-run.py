@@ -25,7 +25,7 @@ async def run_all_bots():
     bots = {
         #"IPTVDoor": run_iptvdoor,
         #"TereaTv": run_tereatv
-        "LayerSeven": run_layerseven,
+        # "LayerSeven": run_layerseven,
         "EPG": run_epg
     }
 
