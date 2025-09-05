@@ -26,9 +26,9 @@ async def run_all_bots():
     bots = {
         "IPTVDoor": run_iptvdoor,
         "TereaTv": run_tereatv,
-        #"LayerSeven": run_layerseven,
+        "LayerSeven": run_layerseven,
         "LuxIPTV": run_luxiptv,
-        #"EPG": run_epg
+        "EPG": run_epg
     }
 
     for name, func in bots.items():
