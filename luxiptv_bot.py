@@ -49,7 +49,7 @@ def check_mail_and_extract(session):
             msg_id = msgs["hydra:member"][0]["id"]
             msg = session.get(f"{MAIL_TM_API}/messages/{msg_id}").json()
             body = msg.get("text", "") or msg.get("html", "")
-            username, password = extract_fields(body)
+            username, password, server = extract_fields(body)
             if username and password:
                 result = subprocess.run(
                     ['python', 'update_playlist_luxiptv.py', username, password],
@@ -57,18 +57,20 @@ def check_mail_and_extract(session):
                     text=True  # Capture the output as a string (not bytes)
                 )                
                 print(result.stderr)  # Print any errors if occurred
-                return f"Your Username: {username}\nYour Password: {password}"
+                return f"Your Username: {username}\nYour Password: {password}\nServer: {server}"
         time.sleep(30)
     return "❌ Email not received after 5 minutes."
 
 def extract_fields(body):
     username_match = re.search(r'(?:Your\s+)?Username:\s*([^\s]+)', body)
     password_match = re.search(r'(?:Your\s+)?Password:\s*([^\s]+)', body)
+    server_match = re.search(r'(?:Your\s+)?Server:\s*([^\s]+)', body)
 
     username = username_match.group(1) if username_match else None
     password = password_match.group(1) if password_match else None
+    server = server_match.group(1) if server_match else None
 
-    return username, password
+    return username, password, server
 
 def submit_form(email):
     options = uc.ChromeOptions()
