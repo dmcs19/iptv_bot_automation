@@ -1,3 +1,4 @@
+import argparse
 import asyncio
 import requests
 from goldclub_bot import run_form_process as run_goldclub
@@ -22,7 +23,7 @@ def send_to_telegram(message):
     response = requests.post(url, data=data)
     print("Telegram response:", response.json())
 
-async def run_all_bots():
+async def run_all_bots(selected_bot=None):
     bots = {
         "IPTVDoor": run_iptvdoor,
         "TereaTv": run_tereatv,
@@ -30,6 +31,14 @@ async def run_all_bots():
         "LuxIPTV": run_luxiptv,
         "EPG": run_epg
     }
+
+    if selected_bot and selected_bot != "All":
+        bots = {k: v for k, v in bots.items() if k == selected_bot}
+
+        if not bots:
+            send_to_telegram(f"❌ No bot found with the name: {selected_bot}")
+            return
+
 
     for name, func in bots.items():
         try:
@@ -39,5 +48,11 @@ async def run_all_bots():
             message = f"❌ *{name}* auto run failed:\n{e}"
         send_to_telegram(message)
 
+
 if __name__ == "__main__":
-    asyncio.run(run_all_bots())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bot", help="Bot to run (or 'All')", default="LuxIPTV")
+    args = parser.parse_args()
+
+    asyncio.run(run_all_bots(args.bot))
+

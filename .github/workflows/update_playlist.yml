@@ -4,6 +4,18 @@ on:
     #schedule:
     #    - cron: "0 0 * * *"
     workflow_dispatch: # Optional manual trigger
+      inputs:
+            bot:
+                description: "Select which bot to run"
+                required: false
+                type: choice
+                default: "LuxIPTV"  # Default bot for scheduled runs
+                options:
+                    - LayerSeven
+                    - LuxIPTV
+                    - TereaTv
+                    - IPTVDoor
+                    - All
 
 jobs:
     run-bot-process:
@@ -41,7 +53,7 @@ jobs:
               run: |
                 Xvfb :99 -screen 0 1920x1080x24 &
                 export DISPLAY=:99
-                python auto-run.py
+                python run_bots.py --bot "${{ github.event.inputs.bot}}"
               env:
                 DISPLAY: :99
                 BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
