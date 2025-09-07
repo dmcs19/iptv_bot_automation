@@ -1,8 +1,6 @@
 import argparse
 import asyncio
 import requests
-from goldclub_bot import run_form_process as run_goldclub
-from tellystudio_bot import run_form_process as run_tellystudio
 from layerseven_bot import run_form_process as run_layerseven
 from iptvdoor_bot import run_form_process as run_iptvdoor
 from tereatv_bot import run_form_process as run_tereatv
@@ -28,8 +26,7 @@ async def run_all_bots(selected_bot=None):
         "IPTVDoor": run_iptvdoor,
         "TereaTv": run_tereatv,
         "LayerSeven": run_layerseven,
-        "LuxIPTV": run_luxiptv,
-        "EPG": run_epg
+        "LuxIPTV": run_luxiptv
     }
 
     if selected_bot and selected_bot != "All":
@@ -43,9 +40,9 @@ async def run_all_bots(selected_bot=None):
     for name, func in bots.items():
         try:
             result = await func()
-            message = f"✅ *{name}* auto run completed:\n\n{result}"
+            message = f"✅ *{name}* run completed:\n\n{result}"
         except Exception as e:
-            message = f"❌ *{name}* auto run failed:\n{e}"
+            message = f"❌ *{name}* run failed:\n{e}"
         send_to_telegram(message)
 
 

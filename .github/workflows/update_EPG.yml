@@ -1,0 +1,49 @@
+name: Update EPG
+
+on:
+    schedule:
+        - cron: "0 0 * * 1" # Run every Monday at 00:00
+    workflow_dispatch: # Optional manual trigger
+
+jobs:
+    run-bot-process:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.10"
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements.txt
+
+            - name: Remove preinstalled Chrome
+              run: |
+                  sudo apt-get purge google-chrome-stable -y
+                  sudo rm -rf /opt/google/chrome
+                  sudo rm -rf ~/.config/google-chrome
+                  sudo rm -rf ~/.cache/google-chrome
+
+            - name: Install Chrome
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y wget unzip
+                  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                  sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+
+            - name: Run the automation with Xvfb
+              run: |
+                  Xvfb :99 -screen 0 1920x1080x24 &
+                  export DISPLAY=:99
+                  python run_epg_bot.py
+              env:
+                  DISPLAY: :99
+                  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+                  CHAT_ID: ${{ secrets.CHAT_ID }}
+                  PAT: ${{ secrets.PAT }}
