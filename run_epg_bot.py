@@ -74,9 +74,9 @@ def update_epg():
 async def run_epg_bot():
     try:
         result = await asyncio.to_thread(update_epg)
-        send_to_telegram(f"✅ *EPG* auto run completed:\n\n{result}")
+        send_to_telegram(f"✅ *EPG* run completed:\n\n{result}")
     except Exception as e:
-        send_to_telegram(f"❌ *EPG* auto run failed:\n{e}")
+        send_to_telegram(f"❌ *EPG* run failed:\n{e}")
 
 if __name__ == "__main__":
     asyncio.run(run_epg_bot())
