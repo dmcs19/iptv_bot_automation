@@ -40,29 +40,49 @@ def download_and_extract_gz(url: str) -> str:
 # --- UPLOAD TO GITHUB ---
 def upload_to_github(file_name: str, file_content: str):
     if not PAT:
-        raise Exception("Error: GitHub token is missing.")
+        print("Error: GitHub token is missing.")
+        return
 
-    # Check if the file exists to get SHA (for update)
-    response = requests.get(f"{GITHUB_API_URL}{file_name}", headers={"Authorization": f"token {PAT}"})
-    sha = response.json().get("sha") if response.status_code == 200 else None
+    existing_file_sha = None
+    try:
+        response = requests.get(f'{GITHUB_API_URL}{file_name}', headers={
+            "Authorization": f"token {PAT}"
+        })
+        if response.status_code == 200:
+            file_data = response.json()
+            existing_file_sha = file_data['sha']
+            print(f"File '{file_name}' already exists. SHA: {existing_file_sha}")
+        elif response.status_code == 404:
+            print(f"File '{file_name}' does not exist. Creating a new one.")
+        else:
+            print(f"GitHub API error while checking file: {response.status_code}")
+            return
+    except requests.exceptions.RequestException as e:
+        print(f"Error during GitHub API request: {e}")
+        return
 
-    encoded_content = base64.b64encode(file_content.encode("utf-8")).decode("utf-8")
+    encoded_content = base64.b64encode(file_content.encode('utf-8')).decode('utf-8')
+    
     payload = {
         "message": f"Upload {file_name}",
-        "content": encoded_content,
+        "content": encoded_content
     }
-    if sha:
-        payload["sha"] = sha
 
-    response = requests.put(
-        f"{GITHUB_API_URL}{file_name}",
-        headers={"Authorization": f"token {PAT}"},
-        json=payload
-    )
+    if existing_file_sha:
+        payload["sha"] = existing_file_sha
 
-    if response.status_code not in [200, 201]:
-        raise Exception(f"Failed to upload {file_name}: {response.json()}")
-    print(f"Successfully uploaded {file_name} to GitHub.")
+    try:
+        response = requests.put(f'{GITHUB_API_URL}{file_name}', headers={
+            "Authorization": f"token {PAT}"
+        }, json=payload)
+        
+        if response.status_code in [200, 201]:
+            print(f"Successfully uploaded {file_name} to GitHub.")
+        else:
+            print(f"Failed to upload {file_name}. Status: {response.status_code}")
+            print(response.json())
+    except requests.exceptions.RequestException as e:
+        print(f"Error during GitHub upload: {e}")
 
 # --- MAIN UPDATE PROCESS ---
 def update_epg():
