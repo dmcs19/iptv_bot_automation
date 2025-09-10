@@ -5,7 +5,6 @@ from layerseven_bot import run_form_process as run_layerseven
 from iptvdoor_bot import run_form_process as run_iptvdoor
 from tereatv_bot import run_form_process as run_tereatv
 from luxiptv_bot import run_form_process as run_luxiptv
-from epg_bot import update_epg as run_epg
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
