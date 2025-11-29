@@ -88,4 +88,4 @@ if __name__ == "__main__":
     template_content = download_file_from_github("playlist_luxiptv_template.m3u")
     if template_content:
         updated_content = replace_credentials(template_content, username, password)
-        upload_to_github("playlist6.m3u", updated_content)
+        upload_to_github("playlist7.m3u", updated_content)
