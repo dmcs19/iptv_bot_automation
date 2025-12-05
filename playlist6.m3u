@@ -1,61 +1,61 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="BTV1.HD.pt" tvg-name="PT: BENFICA TV 1" tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cb/40/9dcb409c-5191-90c7-be07-a50f0d7a6854/benficaTv-1x_U007emarketing-0-8-0-85-220-0.png/256x256bb.jpg",PT: BENFICA TV 1
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386488.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386488.ts
 #EXTINF:-1 tvg-id="BTV1.HD.pt" tvg-name="PT: BENFICA TV 1 HD" tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cb/40/9dcb409c-5191-90c7-be07-a50f0d7a6854/benficaTv-1x_U007emarketing-0-8-0-85-220-0.png/256x256bb.jpg",PT: BENFICA TV 1 HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386487.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386487.ts
 #EXTINF:-1 tvg-id="DAZN.1.pt" tvg-name="PT: ELEVEN SPORTS 1 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 1 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386461.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386461.ts
 #EXTINF:-1 tvg-id="DAZN.2.pt" tvg-name="PT: ELEVEN SPORTS 2 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 2 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386460.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386460.ts
 #EXTINF:-1 tvg-id="DAZN.3.pt" tvg-name="PT: ELEVEN SPORTS 3 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 3 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386459.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386459.ts
 #EXTINF:-1 tvg-id="DAZN.4.pt" tvg-name="PT: ELEVEN SPORTS 4 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 4 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386458.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386458.ts
 #EXTINF:-1 tvg-id="DAZN.5.pt" tvg-name="PT: ELEVEN SPORTS 5 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 5 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386457.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386457.ts
 #EXTINF:-1 tvg-id="DAZN.6.pt" tvg-name="PT: ELEVEN SPORTS 6 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: ELEVEN SPORTS 6 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386456.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386456.ts
 #EXTINF:-1 tvg-id="SPORT.TV+.HD.pt" tvg-name="PT: SPORT TV +" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV +
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386383.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386383.ts
 #EXTINF:-1 tvg-id="SPORT.TV+.HD.pt" tvg-name="PT: SPORT TV + 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV + 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386382.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386382.ts
 #EXTINF:-1 tvg-id="SPORT.TV1.HD.pt" tvg-name="PT: SPORT TV 1 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 1 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/589151.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/589151.ts
 #EXTINF:-1 tvg-id="SPORT.TV1.HD.pt" tvg-name="PT: SPORT TV 1" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 1
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386381.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386381.ts
 #EXTINF:-1 tvg-id="SPORT.TV2.HD.pt" tvg-name="PT: SPORT TV 2 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 2 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/589152.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/589152.ts
 #EXTINF:-1 tvg-id="SPORT.TV2.HD.pt" tvg-name="PT: SPORT TV 2 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 2 HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386380.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386380.ts
 #EXTINF:-1 tvg-id="SPORT.TV3.HD.pt" tvg-name="PT: SPORT TV 3 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 3 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386379.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386379.ts
 #EXTINF:-1 tvg-id="SPORT.TV3.HD.pt" tvg-name="PT: SPORT TV 3 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 3 HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/589153.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/589153.ts
 #EXTINF:-1 tvg-id="SPORT.TV4.HD.pt" tvg-name="PT: SPORT TV 4 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 4 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386378.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386378.ts
 #EXTINF:-1 tvg-id="SPORT.TV5.HD.pt" tvg-name="PT: SPORT TV 5 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 5 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386377.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386377.ts
 #EXTINF:-1 tvg-id="SPORT.TV5.HD.pt" tvg-name="PT: SPORT TV 5 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 5 HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/589154.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/589154.ts
 #EXTINF:-1 tvg-id="SPORT.TV6.HD.pt" tvg-name="PT: SPORT TV 6 4K" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 6 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386376.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386376.ts
 #EXTINF:-1 tvg-id="SPORT.TV6.HD.pt" tvg-name="PT: SPORT TV 6 HD" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 6 HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/589155.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/589155.ts
 #EXTINF:-1 tvg-id="SPORT.TV6.HD.pt" tvg-name="PT: SPORT TV 6 HD LOW" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV 6 HD LOW
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386375.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386375.ts
 #EXTINF:-1 tvg-id="Sport.TV.NBA.pt" tvg-name="PT: SPORT TV NBA" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11230.jpg?80960",PT: SPORT TV NBA
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386374.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386374.ts
 #EXTINF:-1 tvg-id="Sport.TV.NBA.pt" tvg-name="PT: SPORT TV NBA HD" tvg-logo="http://icon-tmdb.me/stalker_portal/misc/logos/320/11230.jpg?80960",PT: SPORT TV NBA HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386373.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386373.ts
 #EXTINF:-1 tvg-id="Sporting.TV.HD.pt" tvg-name="PT: SPORTING TV" tvg-logo="https://cdn6.aptoide.com/imgs/6/c/8/6c8cd63862e947be10a88eb934a20b33_icon.png?w=128",PT: SPORTING TV
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386372.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386372.ts
 #EXTINF:-1 tvg-id="Sporting.TV.HD.pt" tvg-name="PT: SPORTING TV HD" tvg-logo="https://cdn6.aptoide.com/imgs/6/c/8/6c8cd63862e947be10a88eb934a20b33_icon.png?w=128",PT: SPORTING TV HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386371.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386371.ts
 #EXTINF:-1 tvg-id="Eurosport.1.HD.pt" tvg-name="PT: EUROSPORT 4K" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",PT: EUROSPORT 1 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386454.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386454.ts
 #EXTINF:-1 tvg-id="Eurosport.1.HD.pt" tvg-name="PT: EUROSPORT HD" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",PT: EUROSPORT 1 HD
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386452.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386452.ts
 #EXTINF:-1 tvg-id="Eurosport.2.HD.pt" tvg-name="PT: EUROSPORT 2 4K" tvg-logo="https://cdn.brandfetch.io/eurosport.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",PT: EUROSPORT 2 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386453.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386453.ts
 #EXTINF:-1 tvg-id="Canal.11.HD.pt" tvg-name="PT:  Canal 11 4K" tvg-logo="https://play-lh.googleusercontent.com/CovhI5pBip97t5dAc5d5vrNPgsEGDAlyND19nJNBZNtNHp0vmO9-0AyaQU-8Y352rnc=w256",PT:  Canal 11 4K
-http://lux-iptv.pro:80/live/011985e50dd1/41396a28c9/386507.ts
+http://lux-iptv.pro:80/live/fc99f8f32fd0/95583c20dc/386507.ts
