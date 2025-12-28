@@ -90,6 +90,6 @@ if __name__ == "__main__":
     template_content = download_file_from_github("playlist_layerseven_template.m3u")
     if template_content:
         updated_content = replace_credentials(template_content, username, password, server)
-        upload_to_github("playlist.m3u", updated_content)
+        upload_to_github("playlist8.m3u", updated_content)
         updated_content = replace_credentials(template_content, username, password, backup_server)
         upload_to_github("playlist5.m3u", updated_content)
