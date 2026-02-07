@@ -74,12 +74,17 @@ def extract_fields(body):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    options.add_argument("--start-maximized")          # optional: start maximized
-    options.add_argument("--disable-notifications")    # optional: block notifications
     options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, browser_executable_path="/opt/google/chrome/google-chrome")
+    
+    # Auto-detect Chrome version and use matching driver
+    options.add_argument("--headless=new")  # Add this temporarily for testing
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    
+    # Remove browser_executable_path - let it auto-detect
+    driver = uc.Chrome(options=options, version_main=None) 
     try:
         driver.get("https://lux-iptv.shop/")
         
