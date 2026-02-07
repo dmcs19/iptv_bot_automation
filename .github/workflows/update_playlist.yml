@@ -44,24 +44,32 @@ jobs:
 
             - name: Install Chrome and matching ChromeDriver
               run: |
-                # Add Google Chrome repo
-                wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-                echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+                # Remove any existing Chrome
+                sudo apt-get purge google-chrome-stable -y || true
+                sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
+                
+                # Install wget and unzip first
                 sudo apt-get update
+                sudo apt-get install -y wget unzip
                 
-                # Install Chrome
-                sudo apt-get install -y google-chrome-stable
+                # Download and install Chrome
+                wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
                 
-                # Get Chrome version and install matching ChromeDriver
-                CHROME_MAJOR=$(google-chrome --version | sed -E 's/Google Chrome ([0-9]+)(?:\.[0-9.]+).*/\1/')
-                echo "Chrome major version: $CHROME_MAJOR"
+                # Get Chrome major version (fix sed regex)
+                CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1)
+                echo "Chrome major version: $CHROME_VERSION"
                 
-                # Download matching ChromeDriver
-                wget -N "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_MAJOR}.0.0.0/linux64/chromedriver-linux64.zip" -P ~/
-                unzip ~/chromedriver-linux64.zip -d ~/chromedriver/
-                sudo mv ~/chromedriver/chromedriver-linux64/chromedriver /usr/local/bin/
+                # Download matching ChromeDriver using Chrome for Testing (more reliable)
+                CHROMEDRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}.0.0.0/linux64/chromedriver-linux64.zip"
+                wget -N "$CHROMEDRIVER_URL" -P ~/
+                unzip ~/chromedriver-linux64.zip -d ~/
+                sudo mv ~/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
                 sudo chmod +x /usr/local/bin/chromedriver
-                rm -rf ~/chromedriver-linux64.zip ~/chromedriver
+                
+                # Cleanup
+                rm -rf ~/chromedriver-linux64* *.deb
+
 
             - name: Run the automation with Xvfb
               run: |

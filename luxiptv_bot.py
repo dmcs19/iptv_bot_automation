@@ -78,13 +78,10 @@ def submit_form(email):
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
+    options.add_argument("--remote-debugging-port=9222")
     
-    # Auto-detect Chrome version and use matching driver
-    options.add_argument("--headless=new")  # Add this temporarily for testing
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    
-    # Remove browser_executable_path - let it auto-detect
-    driver = uc.Chrome(options=options, version_main=None) 
+    # Remove browser_executable_path - use system Chrome
+    driver = uc.Chrome(options=options)
     try:
         driver.get("https://lux-iptv.shop/")
         
