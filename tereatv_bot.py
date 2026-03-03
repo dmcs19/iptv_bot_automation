@@ -95,6 +95,7 @@ def submit_form(email, phone):
     options.add_argument("--window-size=1920,1080")
     
     driver = uc.Chrome(options=options)
+    wait = WebDriverWait(driver, 20)
     try:
         driver.get("https://tereatv.com/billing/index.php?rp=/store/iptv-free-trial")
 
