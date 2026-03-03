@@ -42,16 +42,18 @@ jobs:
                 sudo rm -rf ~/.config/google-chrome
                 sudo rm -rf ~/.cache/google-chrome
 
-            - name: Install Chrome and matching ChromeDriver (stable)
+            - name: Install Chrome and matching ChromeDriver
               run: |
                 set -e
 
-                # Clean any existing Chrome/driver
+                # Remove preinstalled Chrome (your step)
                 sudo apt-get purge -y google-chrome-stable || true
                 sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
-                sudo rm -f /usr/local/bin/chromedriver || true
 
-                # Base deps
+                # Remove any leftover driver again for safety
+                sudo rm -f /usr/local/bin/chromedriver || true
+                sudo rm -f /usr/bin/chromedriver || true
+
                 sudo apt-get update
                 sudo apt-get install -y wget unzip curl jq
 
@@ -59,40 +61,37 @@ jobs:
                 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                 sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
 
-                echo "Installed Chrome:"
+                echo "Chrome actually installed:"
                 google-chrome --version
 
-                # Use Chrome-for-Testing 'last-known-good-versions-with-downloads' (stable)
+                # Get stable ChromeDriver from last-known-good-versions-with-downloads.json
                 CFT_URL="https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
                 CFT_JSON=$(curl -s "$CFT_URL")
 
-                # Pick STABLE channel, linux, chromedriver
-                CFT_VALUES=$(echo "$CFT_JSON" \
-                  | jq -r '.channels.Stable')
+                CFT_VALUES=$(echo "$CFT_JSON" | jq -r '.channels.Stable')
                 CHROMEDRIVER_VERSION=$(echo "$CFT_VALUES" | jq -r '.version')
                 CHROMEDRIVER_URL=$(echo "$CFT_VALUES" \
                   | jq -r '.downloads.chromedriver[] | select(.platform=="linux64") | .url')
 
-                if [ -z "$CHROMEDRIVER_VERSION" ] || [ "$CHROMEDRIVER_VERSION" = "null" ]; then
-                  echo "Could not resolve ChromeDriver version from Stable channel"
-                  exit 1
-                fi
+                echo "Using ChromeDriver version: $CHROMEDRIVER_VERSION"
+                echo "ChromeDriver URL: $CHROMEDRIVER_URL"
 
-                echo "Resolved ChromeDriver version: $CHROMEDRIVER_VERSION"
-                echo "Download URL: $CHROMEDRIVER_URL"
-
-                # Download and install ChromeDriver
                 wget -q -O /tmp/chromedriver-linux64.zip "$CHROMEDRIVER_URL"
                 unzip -q /tmp/chromedriver-linux64.zip -d /tmp/
                 sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
                 sudo chmod +x /usr/local/bin/chromedriver
 
-                # Cleanup
-                rm -f google-chrome-stable_current_amd64.deb
-                rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip
+                rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip google-chrome-stable_current_amd64.deb
 
-                echo "Installed ChromeDriver:"
+                echo "ChromeDriver now on PATH at: $(which chromedriver || echo 'not found')"
                 chromedriver --version
+
+
+            - name: Debug Chrome/ChromeDriver before tests
+              run: |
+                which chromedriver || echo "no chromedriver on PATH"
+                chromedriver --version || echo "chromedriver not runnable"
+                google-chrome --version || echo "chrome not runnable"
 
 
             - name: Run the automation with Xvfb
