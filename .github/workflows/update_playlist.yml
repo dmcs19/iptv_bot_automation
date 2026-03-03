@@ -44,31 +44,60 @@ jobs:
 
             - name: Install Chrome and matching ChromeDriver
               run: |
-                # Remove any existing Chrome
-                sudo apt-get purge google-chrome-stable -y || true
+                set -e
+
+                # Clean any existing Chrome
+                sudo apt-get purge -y google-chrome-stable || true
                 sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
-                
-                # Install wget and unzip first
+
+                # Dependencies
                 sudo apt-get update
-                sudo apt-get install -y wget unzip
-                
-                # Download and install Chrome
+                sudo apt-get install -y wget unzip curl jq
+
+                # Install Chrome stable
                 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                 sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
-                
-                # Get Chrome major version (fix sed regex)
-                CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1)
-                echo "Chrome major version: $CHROME_VERSION"
-                
-                # Download matching ChromeDriver using Chrome for Testing (more reliable)
-                CHROMEDRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}.0.0.0/linux64/chromedriver-linux64.zip"
-                wget -N "$CHROMEDRIVER_URL" -P ~/
-                unzip ~/chromedriver-linux64.zip -d ~/
-                sudo mv ~/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+
+                # Get Chrome versions
+                CHROME_FULL_VERSION=$(google-chrome --version | awk '{print $3}')
+                CHROME_MAJOR_VERSION=$(echo "$CHROME_FULL_VERSION" | cut -d '.' -f 1)
+                echo "Chrome full version: $CHROME_FULL_VERSION"
+                echo "Chrome major version: $CHROME_MAJOR_VERSION"
+
+                # Use Chrome for Testing “latest patch per build” JSON
+                LATEST_JSON_URL="https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build.json"
+                JSON=$(curl -s "$LATEST_JSON_URL")
+
+                # Resolve exact Chrome for Testing version for this milestone (stable, linux)
+                CHROMEDRIVER_VERSION=$(echo "$JSON" \
+                  | jq -r --arg maj "$CHROME_MAJOR_VERSION" '
+                      .builds[]
+                      | select(.milestone == ($maj|tonumber))
+                      | .version
+                    ' | head -n 1)
+
+                if [ -z "$CHROMEDRIVER_VERSION" ] || [ "$CHROMEDRIVER_VERSION" = "null" ]; then
+                  echo "Failed to resolve ChromeDriver version for milestone $CHROME_MAJOR_VERSION"
+                  exit 1
+                fi
+
+                echo "Resolved ChromeDriver version: $CHROMEDRIVER_VERSION"
+
+                # Download and install ChromeDriver
+                CHROMEDRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
+                wget -q -O /tmp/chromedriver-linux64.zip "$CHROMEDRIVER_URL"
+                unzip -q /tmp/chromedriver-linux64.zip -d /tmp/
+                sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
                 sudo chmod +x /usr/local/bin/chromedriver
-                
+
                 # Cleanup
-                rm -rf ~/chromedriver-linux64* *.deb
+                rm -f google-chrome-stable_current_amd64.deb
+                rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip
+
+                # Sanity checks
+                google-chrome --version
+                chromedriver --version
+
 
 
             - name: Run the automation with Xvfb
