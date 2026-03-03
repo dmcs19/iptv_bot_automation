@@ -59,18 +59,21 @@ jobs:
             - name: Setup Chrome symlinks
               run: |
                 CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
-                CACHE_ID=$(basename "$(dirname "$CHROME_PATH")")
+    
+                # Build chromedriver path by replacing both directory and binary name
+                CHROMEDRIVER_PATH="${CHROME_PATH/setup-chrome\/chrome/setup-chrome\/chromedriver}"
+                CHROMEDRIVER_PATH="${CHROMEDRIVER_PATH%/chrome}/chromedriver"
                 
                 echo "Chrome path: $CHROME_PATH"
-                echo "Cache ID: $CACHE_ID"
+                echo "Chromedriver path: $CHROMEDRIVER_PATH"
                 
-                # Verify files exist first
+                # Verify files exist
                 ls -la "$CHROME_PATH"
-                ls -la "/opt/hostedtoolcache/setup-chrome/chromedriver/$CACHE_ID/x64/chromedriver"
+                ls -la "$CHROMEDRIVER_PATH"
                 
-                # Create symlinks with sudo (needed for /usr/local/bin)
-                sudo ln -sf "$CHROME_PATH/chrome" /usr/local/bin/chrome
-                sudo ln -sf "/opt/hostedtoolcache/setup-chrome/chromedriver/$CACHE_ID/x64/chromedriver" /usr/local/bin/chromedriver
+                # Create symlinks
+                sudo ln -sf "$CHROME_PATH" /usr/local/bin/chrome
+                sudo ln -sf "$CHROMEDRIVER_PATH" /usr/local/bin/chromedriver
                 
                 # Verify symlinks
                 ls -la /usr/local/bin/chrome /usr/local/bin/chromedriver
