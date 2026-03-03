@@ -42,49 +42,52 @@ jobs:
                 sudo rm -rf ~/.config/google-chrome
                 sudo rm -rf ~/.cache/google-chrome
 
-            - name: Install Chrome and matching ChromeDriver
+            - name: Install Chrome + ChromeDriver from Stable channel
               run: |
                 set -e
-
-                # Remove preinstalled Chrome (your step)
                 sudo apt-get purge -y google-chrome-stable || true
                 sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
-
-                # Remove any leftover driver again for safety
-                sudo rm -f /usr/local/bin/chromedriver || true
-                sudo rm -f /usr/bin/chromedriver || true
+                sudo rm -f /usr/local/bin/chromedriver /usr/bin/chromedriver || true
 
                 sudo apt-get update
                 sudo apt-get install -y wget unzip curl jq
 
-                # Install latest stable Chrome
-                wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
-
-                echo "Chrome actually installed:"
-                google-chrome --version
-
-                # Get stable ChromeDriver from last-known-good-versions-with-downloads.json
+                # Get Stable channel info (Chrome + ChromeDriver) from CFT JSON
                 CFT_URL="https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
                 CFT_JSON=$(curl -s "$CFT_URL")
 
-                CFT_VALUES=$(echo "$CFT_JSON" | jq -r '.channels.Stable')
-                CHROMEDRIVER_VERSION=$(echo "$CFT_VALUES" | jq -r '.version')
-                CHROMEDRIVER_URL=$(echo "$CFT_VALUES" \
+                STABLE_JSON=$(echo "$CFT_JSON" | jq -r '.channels.Stable')
+                CHROME_VERSION=$(echo "$STABLE_JSON" | jq -r '.version')
+                CHROME_URL=$(echo "$STABLE_JSON" \
+                  | jq -r '.downloads.chrome[] | select(.platform=="linux64") | .url')
+                CHROMEDRIVER_URL=$(echo "$STABLE_JSON" \
                   | jq -r '.downloads.chromedriver[] | select(.platform=="linux64") | .url')
 
-                echo "Using ChromeDriver version: $CHROMEDRIVER_VERSION"
+                echo "Stable Chrome version: $CHROME_VERSION"
+                echo "Chrome URL: $CHROME_URL"
                 echo "ChromeDriver URL: $CHROMEDRIVER_URL"
 
+                # Install that exact Chrome
+                wget -q -O /tmp/chrome-linux64.zip "$CHROME_URL"
+                unzip -q /tmp/chrome-linux64.zip -d /tmp/chrome-linux64
+                sudo mkdir -p /opt/google/chrome
+                sudo rm -rf /opt/google/chrome/*
+                sudo cp -r /tmp/chrome-linux64/* /opt/google/chrome/
+                sudo ln -sf /opt/google/chrome/chrome /usr/bin/google-chrome
+
+                # Install matching ChromeDriver
                 wget -q -O /tmp/chromedriver-linux64.zip "$CHROMEDRIVER_URL"
                 unzip -q /tmp/chromedriver-linux64.zip -d /tmp/
                 sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
                 sudo chmod +x /usr/local/bin/chromedriver
 
-                rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip google-chrome-stable_current_amd64.deb
+                # Cleanup
+                rm -rf /tmp/chrome-linux64 /tmp/chrome-linux64.zip
+                rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip
 
-                echo "ChromeDriver now on PATH at: $(which chromedriver || echo 'not found')"
-                chromedriver --version
+                echo "Final versions:"
+                google-chrome --version || echo "chrome not found"
+                chromedriver --version || echo "chromedriver not found"
 
 
             - name: Debug Chrome/ChromeDriver before tests
