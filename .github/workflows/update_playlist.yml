@@ -64,39 +64,27 @@ jobs:
                 echo "Chrome full version: $CHROME_FULL_VERSION"
                 echo "Chrome major version: $CHROME_MAJOR_VERSION"
 
-                # Use Chrome for Testing “latest patch per build” JSON
-                LATEST_JSON_URL="https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build.json"
-                JSON=$(curl -s "$LATEST_JSON_URL")
+                # Use the per-milestone endpoint instead of latest-patch-versions-per-build.json
+                # Example: https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_145
+                CFD_URL="https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_${CHROME_MAJOR_VERSION}"
 
-                # Resolve exact Chrome for Testing version for this milestone (stable, linux)
-                CHROMEDRIVER_VERSION=$(echo "$JSON" \
-                  | jq -r --arg maj "$CHROME_MAJOR_VERSION" '
-                      .builds[]
-                      | select(.milestone == ($maj|tonumber))
-                      | .version
-                    ' | head -n 1)
+                # Returns just the version string, e.g. "145.0.7632.117"
+                CHROMEDRIVER_VERSION=$(curl -s "$CFD_URL")
 
                 if [ -z "$CHROMEDRIVER_VERSION" ] || [ "$CHROMEDRIVER_VERSION" = "null" ]; then
-                  echo "Failed to resolve ChromeDriver version for milestone $CHROME_MAJOR_VERSION"
+                  echo "Failed to resolve ChromeDriver version for milestone $CHROME_MAJOR_VERSION from $CFD_URL"
                   exit 1
                 fi
 
                 echo "Resolved ChromeDriver version: $CHROMEDRIVER_VERSION"
 
-                # Download and install ChromeDriver
                 CHROMEDRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
                 wget -q -O /tmp/chromedriver-linux64.zip "$CHROMEDRIVER_URL"
                 unzip -q /tmp/chromedriver-linux64.zip -d /tmp/
                 sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
                 sudo chmod +x /usr/local/bin/chromedriver
-
-                # Cleanup
-                rm -f google-chrome-stable_current_amd64.deb
                 rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip
 
-                # Sanity checks
-                google-chrome --version
-                chromedriver --version
 
 
 
