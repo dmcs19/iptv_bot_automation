@@ -77,13 +77,12 @@ def extract_fields(body):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    options.binary_location = chrome_binary
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
-    driver = uc.Chrome(options=options, browser_executable_path=chrome_binary, driver_executable_path=chromedriver_path)
+    driver = uc.Chrome(options=options)
     try:
         driver.get("https://lux-iptv.shop/")
         

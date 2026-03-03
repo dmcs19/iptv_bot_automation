@@ -56,23 +56,22 @@ jobs:
                 which chromedriver || echo "no chromedriver on PATH"
                 chromedriver --version
 
+            - name: Setup Chrome symlinks
+              run: |
+                CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
+                CACHE_ID=$(basename "$(dirname "$CHROME_PATH")")
+                
+                # Create symlinks to standard locations
+                sudo ln -sf "$CHROME_PATH/chrome" /usr/local/bin/chrome
+                sudo ln -sf "/opt/hostedtoolcache/setup-chrome/chromedriver/$CACHE_ID/x64/chromedriver" /usr/local/bin/chromedriver
+                
+                echo "Chrome symlinks created:"
+                ls -la /usr/local/bin/chrome /usr/local/bin/chromedriver
+                /usr/local/bin/chrome --version
+                /usr/local/bin/chromedriver --version
+
             - name: Run the automation with Xvfb
               run: |
-                # Kill any existing Chrome/Chromium processes
-                pkill -f chrome || true
-                pkill -f chromium || true
-                pkill -f chromedriver || true
-
-                CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
-                CHROME_BINARY="$CHROME_PATH/chrome"
-                CHROMEDRIVER_PATH="/opt/hostedtoolcache/setup-chrome/chromedriver${CHROME_PATH#*/setup-chrome/chrome}/x64/chromedriver"
-                
-                echo "Chrome binary: $CHROME_BINARY"
-                echo "ChromeDriver: $CHROMEDRIVER_PATH"
-                ls -la "$CHROME_BINARY"
-                ls -la "$CHROMEDRIVER_PATH"
-
-                Xvfb :99 -screen 0 1920x1080x24 &
                 export DISPLAY=:99
                 python run_bots.py --bot "${{ github.event.inputs.bot}}"
               env:
