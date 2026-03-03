@@ -6,15 +6,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.service import Service
 import asyncio
 import subprocess
 import re
 import os
 
 MAIL_TM_API = "https://api.mail.tm"
-chrome_binary = os.getenv("CHROME_BINARY")
-chromedriver_path = os.getenv("CHROMEDRIVER_PATH")
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def create_temp_account():
     session = requests.Session()
@@ -84,8 +83,7 @@ def submit_form(email):
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
-    service = Service(chromedriver_path)
-    driver = uc.Chrome(options=options, service=service)
+    driver = uc.Chrome(options=options, browser_executable_path=chrome_binary, driver_executable_path=chromedriver_path)
     try:
         driver.get("https://lux-iptv.shop/")
         
