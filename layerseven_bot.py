@@ -51,13 +51,12 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    # options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, browser_executable_path="/opt/google/chrome/google-chrome")
-    wait = WebDriverWait(driver, 20)
+    
+    driver = uc.Chrome(options=options)
     try:
         url = "https://panel.layerseven.ai/sign-up"
         driver.get(url)
