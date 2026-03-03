@@ -34,7 +34,6 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
-                  pip install pytest
 
             - name: Remove preinstalled Chrome
               run: |
@@ -56,15 +55,6 @@ jobs:
                 ${{ steps.setup-chrome.outputs.chrome-path }} --version
                 which chromedriver || echo "no chromedriver on PATH"
                 chromedriver --version
-
-            # Now run your tests; point Selenium at this Chrome if needed
-            - name: Run tests
-              env:
-                CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
-              run: |
-                # Example: if your code needs CHROME_BIN or custom options:
-                # export CHROME_BIN="${CHROME_BIN}"
-                pytest  # or whatever test command
 
             - name: Run the automation with Xvfb
               run: |
