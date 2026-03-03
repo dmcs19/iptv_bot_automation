@@ -76,8 +76,6 @@ jobs:
                 python run_bots.py --bot "${{ github.event.inputs.bot}}"
               env:
                 DISPLAY: :99
-                CHROME_BINARY: "${{ steps.setup-chrome.outputs.chrome-path }}/chrome"
-                CHROMEDRIVER_PATH: "/opt/hostedtoolcache/setup-chrome/chromedriver${{ steps.setup-chrome.outputs.chrome-path #/setup-chrome/chrome }}/x64/chromedriver"
                 BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                 CHAT_ID: ${{ secrets.CHAT_ID }}
                 PAT: ${{ secrets.PAT }}
