@@ -6,11 +6,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
 import asyncio
 import subprocess
 import re
+import os
 
 MAIL_TM_API = "https://api.mail.tm"
+chrome_binary = os.getenv("CHROME_BINARY")
+chromedriver_path = os.getenv("CHROMEDRIVER_PATH")
 
 def create_temp_account():
     session = requests.Session()
@@ -74,14 +78,14 @@ def extract_fields(body):
 
 def submit_form(email):
     options = uc.ChromeOptions()
+    options.binary_location = chrome_binary
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    options.add_argument("--remote-debugging-port=9222")
     
-    # Remove browser_executable_path - use system Chrome
-    driver = uc.Chrome(options=options)
+    service = Service(chromedriver_path)
+    driver = uc.Chrome(options=options, service=service)
     try:
         driver.get("https://lux-iptv.shop/")
         

@@ -58,11 +58,24 @@ jobs:
 
             - name: Run the automation with Xvfb
               run: |
+                # Kill any existing Chrome/Chromium processes
+                pkill -f chrome || true
+                pkill -f chromium || true
+                pkill -f chromedriver || true
+
+                # Export DYNAMIC paths (these change per Chrome version)
+                export CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
+                export CHROME_BINARY="/opt/hostedtoolcache/setup-chrome/chrome/${{ steps.setup-chrome.outputs.chrome-path }}/x64/chrome"
+                export CHROMEDRIVER_PATH="/opt/hostedtoolcache/setup-chrome/chromedriver/${{ steps.setup-chrome.outputs.chrome-path }}/x64/chromedriver"
+
                 Xvfb :99 -screen 0 1920x1080x24 &
                 export DISPLAY=:99
                 python run_bots.py --bot "${{ github.event.inputs.bot}}"
               env:
                 DISPLAY: :99
+                CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+                CHROME_BINARY: "/opt/hostedtoolcache/setup-chrome/chrome/${{ steps.setup-chrome.outputs.chrome-path }}/x64/chrome"
+                CHROMEDRIVER_PATH: "/opt/hostedtoolcache/setup-chrome/chromedriver/${{ steps.setup-chrome.outputs.chrome-path }}/x64/chromedriver"
                 BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                 CHAT_ID: ${{ secrets.CHAT_ID }}
                 PAT: ${{ secrets.PAT }}
