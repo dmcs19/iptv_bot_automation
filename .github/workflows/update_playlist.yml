@@ -45,9 +45,9 @@ jobs:
               id: setup-chrome
               uses: browser-actions/setup-chrome@v2
               with:
-                chrome-version: latest        # or e.g. "146" or "stable"
-                install-chromedriver: true    # IMPORTANT
-                install-dependencies: true    # good idea on ubuntu-latest
+                chrome-version: latest
+                install-chromedriver: true
+                install-dependencies: true
 
             - name: Debug versions
               run: |
@@ -61,17 +61,27 @@ jobs:
                 CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
                 CACHE_ID=$(basename "$(dirname "$CHROME_PATH")")
                 
-                # Create symlinks to standard locations
+                echo "Chrome path: $CHROME_PATH"
+                echo "Cache ID: $CACHE_ID"
+                
+                # Verify files exist first
+                ls -la "$CHROME_PATH"
+                ls -la "/opt/hostedtoolcache/setup-chrome/chromedriver/$CACHE_ID/x64/chromedriver"
+                
+                # Create symlinks with sudo (needed for /usr/local/bin)
                 sudo ln -sf "$CHROME_PATH/chrome" /usr/local/bin/chrome
                 sudo ln -sf "/opt/hostedtoolcache/setup-chrome/chromedriver/$CACHE_ID/x64/chromedriver" /usr/local/bin/chromedriver
                 
-                echo "Chrome symlinks created:"
+                # Verify symlinks
                 ls -la /usr/local/bin/chrome /usr/local/bin/chromedriver
                 /usr/local/bin/chrome --version
                 /usr/local/bin/chromedriver --version
 
             - name: Run the automation with Xvfb
               run: |
+                pkill -f chrome || true
+                pkill -f chromium || true
+                Xvfb :99 -screen 0 1920x1080x24 &
                 export DISPLAY=:99
                 python run_bots.py --bot "${{ github.event.inputs.bot}}"
               env:
