@@ -35,64 +35,35 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
 
-            - name: Install matching Chrome and ChromeDriver (Stable CFT)
+            - name: Remove preinstalled Chrome
               run: |
-                set -e
-
-                # 1. Remove any existing Chrome and chromedriver
-                sudo apt-get purge -y google-chrome-stable || true
+                sudo apt-get purge google-chrome-stable -y || true
                 sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
                 sudo rm -f /usr/local/bin/chromedriver /usr/bin/chromedriver || true
 
-                # 2. Dependencies
-                sudo apt-get update
-                sudo apt-get install -y wget unzip curl jq
+            - name: Setup Chrome and ChromeDriver
+              id: setup-chrome
+              uses: browser-actions/setup-chrome@v2
+              with:
+                chrome-version: latest        # or e.g. "146" or "stable"
+                install-chromedriver: true    # IMPORTANT
+                install-dependencies: true    # good idea on ubuntu-latest
 
-                # 3. Get Stable Chrome + ChromeDriver from CFT JSON
-                CFT_URL="https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
-                CFT_JSON=$(curl -s "$CFT_URL")
+            - name: Debug versions
+              run: |
+                echo "Chrome path: ${{ steps.setup-chrome.outputs.chrome-path }}"
+                ${{ steps.setup-chrome.outputs.chrome-path }} --version
+                which chromedriver || echo "no chromedriver on PATH"
+                chromedriver --version
 
-                STABLE_JSON=$(echo "$CFT_JSON" | jq -r '.channels.Stable')
-                CHROME_VERSION=$(echo "$STABLE_JSON" | jq -r '.version')
-                CHROME_URL=$(echo "$STABLE_JSON" \
-                  | jq -r '.downloads.chrome[] | select(.platform=="linux64") | .url')
-                CHROMEDRIVER_URL=$(echo "$STABLE_JSON" \
-                  | jq -r '.downloads.chromedriver[] | select(.platform=="linux64") | .url')
-
-                echo "Stable Chrome version: $CHROME_VERSION"
-                echo "Chrome URL: $CHROME_URL"
-                echo "ChromeDriver URL: $CHROMEDRIVER_URL"
-
-                # 4. Install that Chrome into /opt/google/chrome and expose as google-chrome
-                wget -q -O /tmp/chrome-linux64.zip "$CHROME_URL"
-                unzip -q /tmp/chrome-linux64.zip -d /tmp/chrome-linux64
-
-                # Clean any previous custom Chrome dir
-                sudo rm -rf /opt/google/chrome
-                sudo mkdir -p /opt/google/chrome
-
-                # Copy extracted files
-                sudo cp -r /tmp/chrome-linux64/* /opt/google/chrome/
-
-                # Create/refresh symlink so "google-chrome" works
-                sudo ln -sf /opt/google/chrome/chrome /usr/bin/google-chrome
-
-                # 5. Install matching ChromeDriver
-                wget -q -O /tmp/chromedriver-linux64.zip "$CHROMEDRIVER_URL"
-                unzip -q /tmp/chromedriver-linux64.zip -d /tmp/
-                sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
-                sudo chmod +x /usr/local/bin/chromedriver
-
-                # 6. Cleanup
-                rm -rf /tmp/chrome-linux64 /tmp/chrome-linux64.zip
-                rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip
-
-                # 7. Sanity check
-                echo "PATH: $PATH"
-                which google-chrome || echo "google-chrome not on PATH"
-                which chromedriver || echo "chromedriver not on PATH"
-                google-chrome --version || echo "chrome not runnable"
-                chromedriver --version || echo "chromedriver not runnable"
+            # Now run your tests; point Selenium at this Chrome if needed
+            - name: Run tests
+              env:
+                CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+              run: |
+                # Example: if your code needs CHROME_BIN or custom options:
+                # export CHROME_BIN="${CHROME_BIN}"
+                pytest  # or whatever test command
 
             - name: Run the automation with Xvfb
               run: |
