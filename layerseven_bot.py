@@ -57,6 +57,7 @@ def submit_form(email):
     options.add_argument("--window-size=1920,1080")
     
     driver = uc.Chrome(options=options)
+    wait = WebDriverWait(driver, 20)
     try:
         url = "https://panel.layerseven.ai/sign-up"
         driver.get(url)

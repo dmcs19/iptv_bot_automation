@@ -81,7 +81,7 @@ def submit_form(email, phone):
     options.add_argument("--window-size=1920,1080")
     
     driver = uc.Chrome(options=options)
-    
+    wait = WebDriverWait(driver, 20)
     try:
         driver.get("https://tellystudio.com/shop/index.php/store/trial")
         wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a#product5-order-button"))).click()
