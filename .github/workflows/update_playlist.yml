@@ -35,24 +35,20 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
 
-            - name: Remove preinstalled Chrome
-              run: |
-                sudo apt-get purge google-chrome-stable -y
-                sudo rm -rf /opt/google/chrome
-                sudo rm -rf ~/.config/google-chrome
-                sudo rm -rf ~/.cache/google-chrome
-
-            - name: Install Chrome + ChromeDriver from Stable channel
+            - name: Install matching Chrome and ChromeDriver (Stable CFT)
               run: |
                 set -e
+
+                # 1. Remove any existing Chrome and chromedriver
                 sudo apt-get purge -y google-chrome-stable || true
                 sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
                 sudo rm -f /usr/local/bin/chromedriver /usr/bin/chromedriver || true
 
+                # 2. Dependencies
                 sudo apt-get update
                 sudo apt-get install -y wget unzip curl jq
 
-                # Get Stable channel info (Chrome + ChromeDriver) from CFT JSON
+                # 3. Get Stable Chrome + ChromeDriver from CFT JSON
                 CFT_URL="https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
                 CFT_JSON=$(curl -s "$CFT_URL")
 
@@ -67,35 +63,36 @@ jobs:
                 echo "Chrome URL: $CHROME_URL"
                 echo "ChromeDriver URL: $CHROMEDRIVER_URL"
 
-                # Install that exact Chrome
+                # 4. Install that Chrome into /opt/google/chrome and expose as google-chrome
                 wget -q -O /tmp/chrome-linux64.zip "$CHROME_URL"
                 unzip -q /tmp/chrome-linux64.zip -d /tmp/chrome-linux64
+
+                # Clean any previous custom Chrome dir
+                sudo rm -rf /opt/google/chrome
                 sudo mkdir -p /opt/google/chrome
-                sudo rm -rf /opt/google/chrome/*
+
+                # Copy extracted files
                 sudo cp -r /tmp/chrome-linux64/* /opt/google/chrome/
+
+                # Create/refresh symlink so "google-chrome" works
                 sudo ln -sf /opt/google/chrome/chrome /usr/bin/google-chrome
 
-                # Install matching ChromeDriver
+                # 5. Install matching ChromeDriver
                 wget -q -O /tmp/chromedriver-linux64.zip "$CHROMEDRIVER_URL"
                 unzip -q /tmp/chromedriver-linux64.zip -d /tmp/
                 sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
                 sudo chmod +x /usr/local/bin/chromedriver
 
-                # Cleanup
+                # 6. Cleanup
                 rm -rf /tmp/chrome-linux64 /tmp/chrome-linux64.zip
                 rm -rf /tmp/chromedriver-linux64 /tmp/chromedriver-linux64.zip
 
-                echo "Final versions:"
-                google-chrome --version || echo "chrome not found"
-                chromedriver --version || echo "chromedriver not found"
-
-
-            - name: Debug Chrome/ChromeDriver before tests
-              run: |
-                which chromedriver || echo "no chromedriver on PATH"
-                chromedriver --version || echo "chromedriver not runnable"
+                # 7. Sanity check
+                echo "PATH: $PATH"
+                which google-chrome || echo "google-chrome not on PATH"
+                which chromedriver || echo "chromedriver not on PATH"
                 google-chrome --version || echo "chrome not runnable"
-
+                chromedriver --version || echo "chromedriver not runnable"
 
             - name: Run the automation with Xvfb
               run: |
