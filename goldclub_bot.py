@@ -8,8 +8,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import asyncio
 import subprocess
+import os
 
 MAIL_TM_API = "https://api.mail.tm"
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def generate_random_portuguese_phone():
     prefixes = ["91", "92", "93", "96"]

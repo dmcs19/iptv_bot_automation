@@ -9,8 +9,11 @@ from selenium.webdriver.common.keys import Keys
 import asyncio
 import subprocess
 import re
+import os
 
 MAIL_TM_API = "https://api.mail.tm"
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def generate_random_portuguese_phone():
     prefixes = ["91", "92", "93", "96"]
