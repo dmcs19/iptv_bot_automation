@@ -14,7 +14,8 @@ import os
 uc.Chrome.__del__ = lambda self: None
 
 CAPTCHA_API = os.getenv("CAPTCHA_API")
-
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def generate_unique_email():
     timestamp = int(time.time() * 1000)
@@ -51,12 +52,12 @@ def solve_recaptcha(site_key, page_url):
 
 def submit_form(email):
     options = uc.ChromeOptions()
-    # options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, browser_executable_path="/opt/google/chrome/google-chrome")
+    
+    driver = uc.Chrome(options=options)
     wait = WebDriverWait(driver, 20)
     try:
         url = "https://panel.layerseven.ai/sign-up"
