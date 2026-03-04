@@ -12,6 +12,8 @@ import re
 import os
 
 MAIL_TM_API = "https://api.mail.tm"
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def create_temp_account():
     session = requests.Session()

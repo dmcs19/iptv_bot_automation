@@ -14,7 +14,8 @@ import os
 uc.Chrome.__del__ = lambda self: None
 
 CAPTCHA_API = os.getenv("CAPTCHA_API")
-
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def generate_unique_email():
     timestamp = int(time.time() * 1000)
