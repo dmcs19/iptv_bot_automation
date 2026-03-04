@@ -37,20 +37,53 @@ jobs:
 
             - name: Remove preinstalled Chrome
               run: |
-                sudo apt-get purge google-chrome-stable -y
-                sudo rm -rf /opt/google/chrome
-                sudo rm -rf ~/.config/google-chrome
-                sudo rm -rf ~/.cache/google-chrome
+                sudo apt-get purge google-chrome-stable -y || true
+                sudo rm -rf /opt/google/chrome ~/.config/google-chrome ~/.cache/google-chrome
+                sudo rm -f /usr/local/bin/chromedriver /usr/bin/chromedriver || true
 
-            - name: Install Chrome
+            - name: Setup Chrome and ChromeDriver
+              id: setup-chrome
+              uses: browser-actions/setup-chrome@v2
+              with:
+                chrome-version: latest
+                install-chromedriver: true
+                install-dependencies: true
+
+            - name: Debug versions
               run: |
-                  sudo apt-get update
-                  sudo apt-get install -y wget unzip
-                  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                  sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+                echo "Chrome path: ${{ steps.setup-chrome.outputs.chrome-path }}"
+                ${{ steps.setup-chrome.outputs.chrome-path }} --version
+                which chromedriver || echo "no chromedriver on PATH"
+                chromedriver --version
+
+            - name: Setup Chrome symlinks
+              run: |
+                CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
+    
+                # Build chromedriver path by replacing both directory and binary name
+                CHROMEDRIVER_PATH="${CHROME_PATH/setup-chrome\/chrome/setup-chrome\/chromedriver}"
+                CHROMEDRIVER_PATH="${CHROMEDRIVER_PATH%/chrome}/chromedriver"
+                
+                echo "Chrome path: $CHROME_PATH"
+                echo "Chromedriver path: $CHROMEDRIVER_PATH"
+                
+                # Verify files exist
+                ls -la "$CHROME_PATH"
+                ls -la "$CHROMEDRIVER_PATH"
+                
+                # Create symlinks
+                sudo ln -sf "$CHROME_PATH" /usr/local/bin/chrome
+                sudo ln -sf "$CHROMEDRIVER_PATH" /usr/local/bin/chromedriver
+                
+                # Verify symlinks
+                ls -la /usr/local/bin/chrome /usr/local/bin/chromedriver
+                /usr/local/bin/chrome --version
+                /usr/local/bin/chromedriver --version
 
             - name: Run the automation with Xvfb
               run: |
+                pkill -f chrome || true
+                pkill -f chromium || true
                 Xvfb :99 -screen 0 1920x1080x24 &
                 export DISPLAY=:99
                 python run_bots.py --bot "${{ github.event.inputs.bot}}"

@@ -8,8 +8,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import asyncio
 import subprocess
+import os
 
 MAIL_TM_API = "https://api.mail.tm"
+chrome_binary = os.getenv('CHROME_BINARY')
+chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def generate_random_portuguese_phone():
     prefixes = ["91", "92", "93", "96"]
@@ -90,15 +93,12 @@ def simulate_human_behavior(driver, element):
 
 def submit_form(email, phone):
     options = uc.ChromeOptions()
-    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
-    options.add_argument("--disable-software-rasterizer")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--disable-setuid-sandbox")
     options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(options=options, use_subprocess=False, browser_executable_path="/opt/google/chrome/google-chrome")
+    
+    driver = uc.Chrome(options=options)
     wait = WebDriverWait(driver, 20)
     try:
         driver.get("https://goldclubhosting.xyz/index.php?rp=/store/free-trial")
