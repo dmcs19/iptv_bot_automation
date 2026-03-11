@@ -80,6 +80,14 @@ jobs:
                 /usr/local/bin/chrome --version
                 /usr/local/bin/chromedriver --version
 
+            - name: Kill all Chrome processes thoroughly
+              run: |
+                pkill -9 -f chrome || true
+                pkill -9 -f chromium || true
+                pkill -9 -f chromedriver || true
+                sleep 2
+                ps aux | grep chrome || true
+
             - name: Run the automation with Xvfb
               run: |
                 pkill -f chrome || true
