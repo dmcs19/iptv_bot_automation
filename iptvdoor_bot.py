@@ -12,8 +12,6 @@ import re
 import os
 
 MAIL_TM_API = "https://api.mail.tm"
-chrome_binary = os.getenv('CHROME_BINARY')
-chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
 
 def generate_random_portuguese_phone():
     prefixes = ["91", "92", "93", "96"]
@@ -91,11 +89,31 @@ def extract_fields(body):
 def submit_form(email, phone):
     options = uc.ChromeOptions()
     options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-dev-shm-usage") 
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
-    driver = uc.Chrome(options=options)
+    # CRITICAL: Force your Chrome 146 binary
+    chrome_binary = os.getenv('CHROME_BINARY', '/usr/local/bin/chrome')
+    chromedriver_path = os.getenv('CHROMEDRIVER_PATH', '/usr/local/bin/chromedriver')
+    
+    print(f"Using Chrome binary: {chrome_binary}")
+    print(f"Using ChromeDriver: {chromedriver_path}")
+    
+    # Verify binaries exist
+    if not os.path.exists(chrome_binary):
+        raise Exception(f"Chrome binary not found: {chrome_binary}")
+    if not os.path.exists(chromedriver_path):
+        raise Exception(f"ChromeDriver not found: {chromedriver_path}")
+    
+    options.binary_location = chrome_binary
+    
+    # Force version_main for undetected_chromedriver
+    driver = uc.Chrome(
+        options=options,
+        driver_executable_path=chromedriver_path,
+        version_main=146  # Match your Chrome 146
+    )
     wait = WebDriverWait(driver, 20)
     try:
         driver.get("https://www.iptvdoor.com/step/store-checkout-free-trial/")
