@@ -18,13 +18,21 @@ server:80/username/password/1523864
 #EXTINF:-1 tvg-id="DAZN.3.pt" tvg-name="PT: DAZN 3 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 3 4K
 server:80/username/password/386459
 #EXTINF:-1 tvg-id="DAZN.3.pt" tvg-name="PT: DAZN 3 HD" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 3 HD
-server:80/username/password/1523863
+server:80/username/password/1523868
 #EXTINF:-1 tvg-id="DAZN.3.pt" tvg-name="PT: DAZN 3 SD" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 3 SD
-server:80/username/password/1523865
+server:80/username/password/1523863
 #EXTINF:-1 tvg-id="DAZN.4.pt" tvg-name="PT: DAZN 4 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 4 4K
 server:80/username/password/386458
+#EXTINF:-1 tvg-id="DAZN.4.pt" tvg-name="PT: DAZN 4 HD" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 4 HD
+server:80/username/password/1523867
+#EXTINF:-1 tvg-id="DAZN.4.pt" tvg-name="PT: DAZN 4 SD" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 4 SD
+server:80/username/password/1523862
 #EXTINF:-1 tvg-id="DAZN.5.pt" tvg-name="PT: DAZN 5 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 5 4K
 server:80/username/password/386457
+#EXTINF:-1 tvg-id="DAZN.5.pt" tvg-name="PT: DAZN 5 HD" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 5 HD
+server:80/username/password/1523866
+#EXTINF:-1 tvg-id="DAZN.5.pt" tvg-name="PT: DAZN 5 SD" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 5 SD
+server:80/username/password/1523861
 #EXTINF:-1 tvg-id="DAZN.6.pt" tvg-name="PT: DAZN 6 4K" tvg-logo="https://cdn-1.webcatalog.io/catalog/dazn/dazn-icon-filled-256.png?v=1743381304277",PT: DAZN 6 4K
 server:80/username/password/386456
 #EXTINF:-1 tvg-id="SPORT.TV+.HD.pt" tvg-name="PT: SPORT TV +" tvg-logo="https://www.tvprogramacao.com/static/storage/app/epg_channel_icons/144/fba/144fba0b-2f56-408a-a077-583f8408e62b.png",PT: SPORT TV +
