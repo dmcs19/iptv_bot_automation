@@ -122,9 +122,12 @@ def submit_form(email):
         time.sleep(3)
                 
         button = driver.find_element(By.XPATH, "//button[contains(text(), 'Create account')]")
-        button.click()
+        if len(button) > 1:
+            button.click()
+        else:
+            print("Create account button not found.")
         
-        time.sleep(1)
+        time.sleep(5)
                 
         order_links = driver.find_elements(By.CSS_SELECTOR, "a[href='/orders']")
         if len(order_links) > 1:
@@ -137,6 +140,7 @@ def submit_form(email):
             free_trial[1].click()  # Clicking the second element in the list
         else:
             print("Second element with href='/checkout?free-trial=1' not found.")
+            print(driver.page_source)  # Print the page source for debugging
 
         xtreme_cells = driver.find_elements(By.XPATH, "//td[contains(., 'Username:')]")
 
