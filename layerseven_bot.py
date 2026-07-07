@@ -122,10 +122,7 @@ def submit_form(email):
         time.sleep(3)
                 
         button = driver.find_element(By.XPATH, "//button[contains(text(), 'Create account')]")
-        if len(button) > 1:
-            button.click()
-        else:
-            print("Create account button not found.")
+        button.click()
         
         time.sleep(5)
                 
